@@ -1,0 +1,91 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function hasProfile() {
+      return signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function role() {
+      return hasProfile()
+        ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role
+        : null;
+    }
+
+    function isAdmin() {
+      return role() == "admin";
+    }
+
+    function ownsLead(lead) {
+      return signedIn() && lead.requestedByUserId == request.auth.uid;
+    }
+
+    function canManageProperties() {
+      return role() in ["agent", "property_manager", "admin"];
+    }
+
+    function canManageCrm() {
+      return role() in ["agent", "admin"];
+    }
+
+    function canManageViewings() {
+      return role() in ["agent", "property_manager", "admin"];
+    }
+
+    match /users/{userId} {
+      allow create: if signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.uid == userId
+        && request.resource.data.status == "active"
+        && request.resource.data.role in ["buyer", "investor"];
+      allow read: if (signedIn() && request.auth.uid == userId) || isAdmin();
+      allow update: if isAdmin()
+        || (
+          signedIn()
+          && request.auth.uid == userId
+          && request.resource.data.uid == resource.data.uid
+          && request.resource.data.email == resource.data.email
+          && request.resource.data.role == resource.data.role
+          && request.resource.data.status == resource.data.status
+          && request.resource.data.createdAt == resource.data.createdAt
+        );
+    }
+
+    match /properties/{propertyId} {
+      allow read: if resource.data.status == "active" || canManageProperties();
+      allow create, update, delete: if signedIn() && canManageProperties();
+    }
+
+    match /comparisons/{comparisonId} {
+      allow create: if signedIn() && request.auth.uid == request.resource.data.userId;
+      allow read, update, delete: if signedIn() && request.auth.uid == resource.data.userId;
+    }
+
+    match /leads/{leadId} {
+      allow read: if signedIn() && (canManageCrm() || ownsLead(resource.data));
+      allow create: if signedIn() && (
+        canManageCrm()
+        || (
+          request.resource.data.requestedByUserId == request.auth.uid
+          && request.resource.data.status == "new"
+        )
+      );
+      allow update, delete: if signedIn() && canManageCrm();
+    }
+
+    match /interactions/{interactionId} {
+      allow read, create, update, delete: if signedIn() && canManageCrm();
+    }
+
+    match /viewings/{viewingId} {
+      allow read, create, update, delete: if signedIn() && canManageViewings();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
