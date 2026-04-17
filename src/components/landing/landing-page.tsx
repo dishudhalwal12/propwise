@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChartColumnIncreasing, Landmark, Search, ShieldCheck, Users2 } from "lucide-react";
+import { ArrowRight, ChartColumnIncreasing, Search, ShieldCheck, Users2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { SectionHeading } from "@/components/layout/section-heading";
@@ -181,47 +181,27 @@ export function LandingPage() {
                       />
                     </div>
                   </div>
-                  <div className="col-span-2 grid min-w-0 gap-4 sm:grid-cols-[minmax(0,_0.66fr)_minmax(0,_1.34fr)]">
-                    <div className="glass-panel min-w-0 rounded-[30px] bg-white/85 p-5">
-                      <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Shortlist Pulse</p>
-                      <div className="mt-5 rounded-[24px] bg-slate-50/90 p-4">
-                        <div className="flex items-start justify-between gap-4">
-                          <div>
-                            <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Top match</p>
-                            <p className="mt-2 font-display text-3xl font-semibold text-slate-950">92 / 100</p>
-                          </div>
-                          <div className="rounded-2xl bg-white px-3 py-2 shadow-sm">
-                            <Landmark className="h-4 w-4 text-slate-400" />
-                          </div>
-                        </div>
-                        <p className="mt-3 text-sm leading-6 text-slate-600">
-                          Buyer preferences, yield targets, and locality signals are already aligned.
+                  <div className="col-span-2 glass-panel min-w-0 rounded-[30px] bg-white/82 p-6">
+                    <div className="space-y-6">
+                      <div className="max-w-3xl">
+                        <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Decision cockpit</p>
+                        <p className="mt-3 font-display text-xl font-semibold leading-tight text-slate-950 sm:text-2xl">
+                          Compare properties, pressure-test returns, and keep the next move clear in one calm workspace.
                         </p>
                       </div>
-                      <div className="mt-4 flex gap-3">
-                        <div className="flex-1 rounded-[20px] bg-emerald-50 px-3 py-3 text-center">
-                          <p className="font-display text-xl font-semibold text-slate-950">3</p>
-                          <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate-500">Ready</p>
+                      <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
+                        <div className="rounded-[22px] bg-slate-50/90 px-4 py-4">
+                          <p className="font-display text-xl font-semibold text-slate-950">4</p>
+                          <p className="mt-1 text-sm leading-5 text-slate-600">Compare up to four properties without tab hopping.</p>
                         </div>
-                        <div className="flex-1 rounded-[20px] bg-sky-50 px-3 py-3 text-center">
-                          <p className="font-display text-xl font-semibold text-slate-950">7</p>
-                          <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate-500">Tracked</p>
+                        <div className="rounded-[22px] bg-emerald-50/90 px-4 py-4">
+                          <p className="font-display text-xl font-semibold text-slate-950">ROI</p>
+                          <p className="mt-1 text-sm leading-5 text-slate-600">Model yield, EMI, and upside in the same flow.</p>
                         </div>
-                        <div className="flex-1 rounded-[20px] bg-amber-50 px-3 py-3 text-center">
-                          <p className="font-display text-xl font-semibold text-slate-950">2</p>
-                          <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate-500">Recheck</p>
+                        <div className="rounded-[22px] bg-sky-50/90 px-4 py-4 sm:col-span-2 2xl:col-span-1">
+                          <p className="font-display text-xl font-semibold text-slate-950">CRM</p>
+                          <p className="mt-1 text-sm leading-5 text-slate-600">Keep buyer notes, viewings, and follow-ups linked.</p>
                         </div>
-                      </div>
-                    </div>
-                    <div className="glass-panel min-w-0 rounded-[30px] bg-sky-100/70 p-6">
-                      <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Automated Decision Quality</p>
-                      <p className="mt-3 max-w-sm font-display text-2xl font-semibold text-slate-950">
-                        AI-shaped property intelligence for buyers, investors, and teams.
-                      </p>
-                      <div className="mt-5 flex -space-x-3">
-                        {[1, 2, 3, 4].map((id) => (
-                          <div key={id} className="h-10 w-10 rounded-full border-2 border-white bg-white/80" />
-                        ))}
                       </div>
                     </div>
                   </div>

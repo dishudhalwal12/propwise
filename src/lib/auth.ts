@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  AuthError,
   User as FirebaseUser,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -12,7 +13,6 @@ import {
   doc,
   getDoc,
   serverTimestamp,
-  setDoc,
   updateDoc
 } from "firebase/firestore";
 
@@ -28,21 +28,36 @@ type RegisterInput = {
   phone?: string;
 };
 
+type RegisterProfileInput = {
+  uid: string;
+  fullName: string;
+  email: string;
+  role: Extract<UserRole, "buyer" | "investor">;
+  phone: string;
+};
+
 export async function registerUser(input: RegisterInput) {
-  const credential = await createUserWithEmailAndPassword(auth, input.email, input.password);
+  const email = input.email.trim().toLowerCase();
+  const fullName = input.fullName.trim();
+  const phone = input.phone?.trim() ?? "";
+  const credential = await createUserWithEmailAndPassword(auth, email, input.password);
   const payload = {
     uid: credential.user.uid,
-    fullName: input.fullName,
-    email: input.email,
+    fullName,
+    email,
     role: input.role,
-    phone: input.phone ?? "",
-    avatarUrl: "",
-    status: "active",
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp()
+    phone
   };
 
-  await setDoc(doc(db, "users", credential.user.uid), payload);
+  try {
+    await createProfileWithRetry(payload, credential.user);
+  } catch (error) {
+    await credential.user.delete().catch(() => undefined);
+    await signOut(auth).catch(() => undefined);
+    clearSessionCookies();
+    throw toRegistrationError(error);
+  }
+
   await syncSessionCookies(await credential.user.getIdToken(), input.role, credential.user.uid);
   return credential.user;
 }
@@ -113,4 +128,96 @@ async function syncSessionCookies(idToken: string, role: UserRole, uid: string) 
   } catch {
     persistSessionCookie(role, uid);
   }
+}
+
+async function createProfileWithRetry(
+  payload: RegisterProfileInput,
+  user: FirebaseUser
+) {
+  let lastError: unknown;
+
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      await auth.authStateReady();
+      const idToken = await user.getIdToken(attempt > 0);
+      await createProfileViaApi(payload, idToken);
+      return;
+    } catch (error) {
+      lastError = error;
+      if (!shouldRetryProfileCreation(error) || attempt === 2) {
+        break;
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 250 * (attempt + 1)));
+    }
+  }
+
+  throw lastError;
+}
+
+async function createProfileViaApi(payload: RegisterProfileInput, idToken: string) {
+  const response = await fetch("/api/auth/profile", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      ...payload,
+      idToken
+    })
+  });
+
+  if (response.ok) {
+    return;
+  }
+
+  const data = (await response.json().catch(() => null)) as
+    | {
+        error?: string;
+        message?: string;
+      }
+    | null;
+
+  const error = new Error(data?.message ?? "Unable to create account.") as Error & {
+    code?: string;
+    status?: number;
+  };
+  error.code = data?.error;
+  error.status = response.status;
+  throw error;
+}
+
+function isPermissionDenied(error: unknown) {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    (("code" in error && error.code === "permission-denied") || ("status" in error && error.status === 403))
+  );
+}
+
+function shouldRetryProfileCreation(error: unknown) {
+  return (
+    isPermissionDenied(error) ||
+    (typeof error === "object" &&
+      error !== null &&
+      "status" in error &&
+      (error.status === 401 || error.status === 429 || error.status === 500 || error.status === 502 || error.status === 503))
+  );
+}
+
+function toRegistrationError(error: unknown) {
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    (error as AuthError).code === "auth/email-already-in-use"
+  ) {
+    return new Error("An account with this email already exists.");
+  }
+
+  if (isPermissionDenied(error)) {
+    return new Error("We could not finish creating your profile. Firestore access for new signups is blocked.");
+  }
+
+  return error instanceof Error ? error : new Error("Unable to create account.");
 }

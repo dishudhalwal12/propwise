@@ -38,9 +38,26 @@ service cloud.firestore {
     match /users/{userId} {
       allow create: if signedIn()
         && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly([
+          "uid",
+          "fullName",
+          "email",
+          "role",
+          "phone",
+          "avatarUrl",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ])
         && request.resource.data.uid == userId
+        && request.resource.data.fullName is string
+        && request.resource.data.email is string
+        && request.resource.data.phone is string
+        && request.resource.data.avatarUrl is string
         && request.resource.data.status == "active"
-        && request.resource.data.role in ["buyer", "investor"];
+        && request.resource.data.role in ["buyer", "investor"]
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
       allow read: if (signedIn() && request.auth.uid == userId) || isAdmin();
       allow update: if isAdmin()
         || (

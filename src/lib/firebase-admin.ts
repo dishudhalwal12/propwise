@@ -8,6 +8,7 @@ import {
   initializeApp
 } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
 
 function readServiceAccount() {
   const inline = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT_JSON;
@@ -48,4 +49,5 @@ function initAdminApp() {
 
 const adminApp: App | null = initAdminApp();
 export const adminAuth = adminApp ? getAuth(adminApp) : null;
+export const adminDb = adminApp ? getFirestore(adminApp) : null;
 export const adminEnabled = Boolean(adminAuth);
