@@ -84,14 +84,15 @@ export function LandingPage() {
   return (
     <main className="relative overflow-hidden">
       <div className="absolute inset-0 soft-grid opacity-60" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[34rem] bg-[radial-gradient(circle_at_top,_rgba(23,37,84,0.12),_transparent_58%)]" />
       <SiteNavbar />
 
       <section className="container-shell relative pt-10">
-        <div className="glass-panel mx-auto max-w-6xl overflow-hidden px-6 py-8 sm:px-10 lg:px-14 lg:py-12">
+        <div className="glass-panel rich-hero-shell mx-auto max-w-6xl overflow-hidden px-6 py-8 sm:px-10 lg:px-14 lg:py-12">
           <div className="grid gap-14 lg:grid-cols-[minmax(0,_1.08fr)_minmax(0,_0.92fr)] lg:items-start">
             <div className="min-w-0 space-y-8">
               <div className="space-y-6 pt-6 lg:pt-10">
-                <Badge variant="outline" className="bg-white/80 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-slate-500">
+                <Badge variant="outline" className="border-white/70 bg-white/88 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-slate-600 shadow-[0_14px_30px_rgba(15,23,42,0.06)]">
                   Premium SaaS for property intelligence
                 </Badge>
                 <div className="space-y-5">
@@ -124,9 +125,9 @@ export function LandingPage() {
                     className="glass-panel rounded-[28px] p-5"
                   >
                     <div className="mb-5 flex items-center gap-2">
-                      <span className="h-9 w-9 rounded-2xl bg-sky-100" />
-                      <span className="h-9 w-9 rounded-2xl bg-fuchsia-100" />
-                      <span className="h-9 w-9 rounded-2xl bg-emerald-100" />
+                      <span className="h-9 w-9 rounded-2xl bg-indigo-100" />
+                      <span className="h-9 w-9 rounded-2xl bg-rose-100" />
+                      <span className="h-9 w-9 rounded-2xl bg-amber-100" />
                     </div>
                     <h3 className="font-display text-2xl font-semibold text-slate-950">Integrated workflows</h3>
                     <p className="mt-2 text-sm leading-6 text-slate-600">
@@ -148,7 +149,7 @@ export function LandingPage() {
                 </div>
 
                 <div className="grid min-w-0 gap-4 sm:grid-cols-[minmax(0,_1.02fr)_minmax(0,_0.98fr)]">
-                  <div className="glass-panel row-span-2 overflow-hidden rounded-[32px] bg-gradient-to-br from-sky-50 via-white to-emerald-50">
+                  <div className="glass-panel row-span-2 overflow-hidden rounded-[32px] bg-gradient-to-br from-indigo-50 via-white to-amber-50">
                     <div className="relative h-full min-h-[390px]">
                       <Image
                         src="/landing/showcase-property.svg"
@@ -164,13 +165,13 @@ export function LandingPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-[30px] border border-lime-100 bg-lime-200/75 p-6 shadow-glass">
+                  <div className="rounded-[30px] border border-amber-200/80 bg-gradient-to-br from-amber-100 via-orange-50 to-white p-6 shadow-glass">
                     <p className="font-display text-5xl font-semibold text-slate-950">83%</p>
                     <p className="mt-3 text-sm leading-6 text-slate-700">
                       of shortlisted properties become easier to rank after weighted comparison.
                     </p>
                   </div>
-                  <div className="glass-panel overflow-hidden rounded-[30px] bg-gradient-to-br from-amber-50 via-white to-sky-50">
+                  <div className="glass-panel overflow-hidden rounded-[30px] bg-gradient-to-br from-rose-50 via-white to-indigo-50">
                     <div className="relative h-full min-h-[184px]">
                       <Image
                         src="/landing/showcase-interior.svg"
@@ -179,30 +180,6 @@ export function LandingPage() {
                         sizes="(max-width: 640px) 100vw, 20vw"
                         className="object-cover"
                       />
-                    </div>
-                  </div>
-                  <div className="col-span-2 glass-panel min-w-0 rounded-[30px] bg-white/82 p-6">
-                    <div className="space-y-6">
-                      <div className="max-w-3xl">
-                        <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Decision cockpit</p>
-                        <p className="mt-3 font-display text-xl font-semibold leading-tight text-slate-950 sm:text-2xl">
-                          Compare properties, pressure-test returns, and keep the next move clear in one calm workspace.
-                        </p>
-                      </div>
-                      <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
-                        <div className="rounded-[22px] bg-slate-50/90 px-4 py-4">
-                          <p className="font-display text-xl font-semibold text-slate-950">4</p>
-                          <p className="mt-1 text-sm leading-5 text-slate-600">Compare up to four properties without tab hopping.</p>
-                        </div>
-                        <div className="rounded-[22px] bg-emerald-50/90 px-4 py-4">
-                          <p className="font-display text-xl font-semibold text-slate-950">ROI</p>
-                          <p className="mt-1 text-sm leading-5 text-slate-600">Model yield, EMI, and upside in the same flow.</p>
-                        </div>
-                        <div className="rounded-[22px] bg-sky-50/90 px-4 py-4 sm:col-span-2 2xl:col-span-1">
-                          <p className="font-display text-xl font-semibold text-slate-950">CRM</p>
-                          <p className="mt-1 text-sm leading-5 text-slate-600">Keep buyer notes, viewings, and follow-ups linked.</p>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -219,7 +196,7 @@ export function LandingPage() {
                       <p className="text-sm leading-6 text-slate-600">
                         Rapidly compare new opportunities and highlight the strongest fit for budget, yield, and location.
                       </p>
-                      <div className="h-1.5 w-24 rounded-full bg-gradient-to-r from-emerald-300 to-sky-300" />
+                      <div className="h-1.5 w-24 rounded-full bg-gradient-to-r from-amber-400 via-rose-300 to-indigo-300" />
                     </div>
                     <div className="relative min-h-[180px] overflow-hidden rounded-[24px]">
                       <Image
@@ -235,10 +212,10 @@ export function LandingPage() {
               </div>
 
               <div id="how-it-works" className="grid gap-4 sm:grid-cols-2">
-                <FloatingMetric value="42%" label="better decision confidence from structured comparison views" tint="bg-sky-100/85" />
+                <FloatingMetric value="42%" label="better decision confidence from structured comparison views" tint="bg-indigo-100/85" />
                 <FloatingMetric value="60k" label="monthly user-level valuation points surfaced across listings" tint="bg-white/80" delay={0.1} />
-                <FloatingMetric value="5x" label="faster shortlist analysis with linked ROI and CRM workflows" tint="bg-fuchsia-100/85" delay={0.15} />
-                <FloatingMetric value="80%" label="clearer ROI visibility before scheduling a site visit" tint="bg-white/80" delay={0.22} />
+                <FloatingMetric value="5x" label="faster shortlist analysis with linked ROI and CRM workflows" tint="bg-rose-100/85" delay={0.15} />
+                <FloatingMetric value="80%" label="clearer ROI visibility before scheduling a site visit" tint="bg-amber-50/90" delay={0.22} />
               </div>
 
               <div className="glass-panel grid gap-6 rounded-[32px] p-6 md:grid-cols-[1fr_0.9fr]">

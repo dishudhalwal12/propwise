@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Sora } from "next/font/google";
 
+import { PropertyChatbot } from "@/components/chat/property-chatbot";
 import { AuthProvider } from "@/components/providers/auth-provider";
 
 import "./globals.css";
@@ -28,7 +29,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body className={`${fontSans.variable} ${fontDisplay.variable} min-h-screen bg-background font-sans text-foreground antialiased`}>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          {children}
+          <PropertyChatbot />
+        </AuthProvider>
       </body>
     </html>
   );

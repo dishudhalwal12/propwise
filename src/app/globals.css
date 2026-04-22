@@ -4,18 +4,18 @@
 
 @layer base {
   :root {
-    --background: 45 33% 97%;
+    --background: 24 36% 97%;
     --foreground: 222 31% 14%;
     --card: 0 0% 100%;
     --card-foreground: 222 31% 14%;
     --primary: 222 44% 11%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 152 55% 94%;
-    --secondary-foreground: 160 84% 16%;
-    --muted: 210 20% 95%;
+    --secondary: 24 66% 93%;
+    --secondary-foreground: 14 54% 27%;
+    --muted: 210 18% 94%;
     --muted-foreground: 215 16% 46%;
-    --accent: 196 100% 95%;
-    --accent-foreground: 199 89% 30%;
+    --accent: 226 84% 95%;
+    --accent-foreground: 228 52% 31%;
     --border: 220 25% 89%;
     --input: 220 25% 89%;
     --ring: 220 25% 70%;
@@ -30,10 +30,7 @@
   }
 
   body {
-    background:
-      radial-gradient(circle at top, rgba(113, 241, 200, 0.25), transparent 30%),
-      radial-gradient(circle at 80% 20%, rgba(153, 196, 255, 0.22), transparent 28%),
-      linear-gradient(180deg, #f8f5ee 0%, #fcfcfb 100%);
+    background: #ffffff;
   }
 
   a {
@@ -50,14 +47,20 @@
     @apply rounded-[32px] border border-white/50 bg-white/75 shadow-glass backdrop-blur-2xl;
   }
 
+  .rich-hero-shell {
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.1) 38%, rgba(211, 122, 80, 0.12)),
+      rgba(255, 255, 255, 0.78);
+  }
+
   .section-space {
     @apply py-20 sm:py-24 lg:py-28;
   }
 
   .soft-grid {
     background-image:
-      linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+      linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
     background-size: 44px 44px;
   }
 

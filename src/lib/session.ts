@@ -20,7 +20,7 @@ export async function getServerSession() {
     return null;
   }
 
-  if (adminAuth) {
+  if (adminAuth && !process.env.FIREBASE_AUTH_EMULATOR_HOST) {
     try {
       const decoded = await adminAuth.verifySessionCookie(sessionCookie, true);
       return {

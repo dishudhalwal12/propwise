@@ -36,16 +36,19 @@ export function SiteNavbar() {
           "mx-auto flex max-w-6xl items-center justify-between rounded-full border px-5 py-3 transition-all duration-300",
           scrolled
             ? "border-white/70 bg-white/72 shadow-glass backdrop-blur-2xl"
-            : "border-transparent bg-transparent"
+            : "border-white/10 bg-black/18 backdrop-blur-md"
         )}
       >
-        <LogoMark />
+        <LogoMark invert={!scrolled} />
         <nav className="hidden items-center gap-8 md:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
+              className={cn(
+                "text-sm font-medium transition",
+                scrolled ? "text-slate-600 hover:text-slate-950" : "text-white/72 hover:text-white"
+              )}
             >
               {item.label}
             </Link>
@@ -57,7 +60,12 @@ export function SiteNavbar() {
           </Button>
         </div>
         <button
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/50 bg-white/70 md:hidden"
+          className={cn(
+            "inline-flex h-10 w-10 items-center justify-center rounded-full border md:hidden",
+            scrolled
+              ? "border-white/50 bg-white/70 text-slate-950"
+              : "border-white/15 bg-white/8 text-white"
+          )}
           onClick={() => setOpen((value) => !value)}
           aria-label="Toggle menu"
         >

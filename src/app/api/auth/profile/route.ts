@@ -26,28 +26,38 @@ function isEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
-async function createProfileWithRest(input: {
-  idToken: string;
-  uid: string;
-  fullName: string;
-  email: string;
-  role: "buyer" | "investor";
-  phone: string;
-}) {
-  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-  if (!projectId) {
-    throw createRouteError("Server is missing Firebase project configuration.", 500, "config-missing");
+async function createProfileWithRest(
+  input: {
+    idToken: string;
+    uid: string;
+    fullName: string;
+    email: string;
+    role: "buyer" | "investor";
+    phone: string;
+  },
+  options?: {
+    baseUrl?: string;
+    includeAuthHeader?: boolean;
+  }
+) {
+  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "demo-propwise";
+  const baseUrl = options?.baseUrl ?? "https://firestore.googleapis.com/v1";
+  const includeAuthHeader = options?.includeAuthHeader ?? true;
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json"
+  };
+
+  if (includeAuthHeader) {
+    headers.Authorization = `Bearer ${input.idToken}`;
   }
 
   const now = new Date().toISOString();
   const response = await fetch(
-    `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/users/${input.uid}?currentDocument.exists=false`,
+    `${baseUrl}/projects/${projectId}/databases/(default)/documents/users/${input.uid}?currentDocument.exists=false`,
     {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${input.idToken}`
-      },
+      headers,
       body: JSON.stringify({
         fields: {
           uid: { stringValue: input.uid },
@@ -78,8 +88,10 @@ async function createProfileWithRest(input: {
       }
     | null;
 
+  console.log("REST error payload:", payload);
+
   if (response.status === 403 || payload?.error?.status === "PERMISSION_DENIED") {
-    throw createRouteError("Firestore access for new signups is blocked.", 403, "permission-denied");
+    throw createRouteError("We could not finish creating your profile. Please check your network connection or try again later.", 403, "permission-denied");
   }
 
   if (response.status === 409 || payload?.error?.status === "ALREADY_EXISTS") {
@@ -91,6 +103,31 @@ async function createProfileWithRest(input: {
     response.status || 500,
     "profile-create-failed"
   );
+}
+
+async function createProfileWithFirestoreEmulator(input: {
+  idToken: string;
+  uid: string;
+  fullName: string;
+  email: string;
+  role: "buyer" | "investor";
+  phone: string;
+}) {
+  if (!adminDb) {
+    throw createRouteError("Firestore emulator admin client is not configured.", 500, "config-missing");
+  }
+
+  await adminDb.collection("users").doc(input.uid).create({
+    uid: input.uid,
+    fullName: input.fullName,
+    email: input.email,
+    role: input.role,
+    phone: input.phone,
+    avatarUrl: "",
+    status: "active",
+    createdAt: new Date(),
+    updatedAt: new Date()
+  });
 }
 
 export async function POST(request: Request) {
@@ -116,6 +153,19 @@ export async function POST(request: Request) {
         { error: "invalid-request", message: "Missing or invalid registration payload." },
         { status: 400 }
       );
+    }
+
+    if (process.env.FIRESTORE_EMULATOR_HOST) {
+      await createProfileWithFirestoreEmulator({
+        idToken,
+        uid,
+        fullName,
+        email,
+        role,
+        phone
+      });
+
+      return NextResponse.json({ ok: true, mode: "emulator" });
     }
 
     if (adminAuth && adminDb) {

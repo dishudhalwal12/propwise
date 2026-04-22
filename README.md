@@ -6,9 +6,20 @@ PropWise is a Next.js 15 real-estate intelligence app for VC32 students, buyers,
 
 1. Clone the repository.
 2. Install dependencies with `npm install`.
-3. Copy your working Firebase env file into `.env.local`.
-4. Start the app with `npm run dev`.
-5. Open `http://localhost:3000`.
+3. Copy your working Firebase env file into `.env.local`, or keep the local emulator values already present there.
+4. Start Firebase locally with `npm run dev:emulators`.
+5. Start the app with `npm run dev`.
+6. Open `http://localhost:3000`.
+
+## Local Firebase emulator mode
+
+When `.env.local` is left on the local demo values, the app connects to:
+
+- Firebase Auth emulator on `127.0.0.1:9099`
+- Firestore emulator on `127.0.0.1:8080`
+- Storage emulator on `127.0.0.1:9199`
+
+The repo includes `scripts/firebase-emulators.sh`, which reuses the local JDK installed at `~/.local/propwise/jdk-21` when present so Firestore can start reliably on a fresh shell.
 
 ## Required setup
 

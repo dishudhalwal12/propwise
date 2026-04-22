@@ -17,8 +17,7 @@ export async function POST(request: Request) {
 
   const response = NextResponse.json({ ok: true });
   const secure = process.env.NODE_ENV === "production";
-
-  if (adminAuth) {
+  if (adminAuth && !process.env.FIREBASE_AUTH_EMULATOR_HOST) {
     const sessionCookie = await adminAuth.createSessionCookie(idToken, {
       expiresIn: SESSION_MAX_AGE * 1000
     });

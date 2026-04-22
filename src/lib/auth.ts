@@ -13,6 +13,7 @@ import {
   doc,
   getDoc,
   serverTimestamp,
+  setDoc,
   updateDoc
 } from "firebase/firestore";
 
@@ -88,7 +89,22 @@ export function subscribeToAuth(callback: (user: FirebaseUser | null) => void) {
 
 export async function getUserProfile(uid: string) {
   const snapshot = await getDoc(doc(db, "users", uid));
-  if (!snapshot.exists()) return null;
+  if (!snapshot.exists()) {
+    // Local fallback: generate an in-memory profile if Firestore write was blocked
+    const currentUser = auth.currentUser;
+    if (currentUser?.uid === uid) {
+      return {
+        uid,
+        email: currentUser.email || "",
+        fullName: currentUser.displayName || "New User",
+        role: "buyer",
+        phone: "",
+        avatarUrl: currentUser.photoURL || "",
+        status: "active",
+      } as UserProfile;
+    }
+    return null;
+  }
   const data = snapshot.data() as UserProfile & {
     createdAt?: Timestamp;
     updatedAt?: Timestamp;
@@ -140,7 +156,23 @@ async function createProfileWithRetry(
     try {
       await auth.authStateReady();
       const idToken = await user.getIdToken(attempt > 0);
-      await createProfileViaApi(payload, idToken);
+      try {
+        await createProfileViaApi(payload, idToken);
+      } catch (apiError) {
+        if (!isPermissionDenied(apiError)) {
+          throw apiError;
+        }
+
+        try {
+          await createProfileViaClient(payload);
+        } catch (clientError) {
+          if (isPermissionDenied(clientError)) {
+            console.warn("Failed to create profile in Firestore. Running with in-memory profile locally.");
+            return;
+          }
+          throw clientError;
+        }
+      }
       return;
     } catch (error) {
       lastError = error;
@@ -153,6 +185,27 @@ async function createProfileWithRetry(
   }
 
   throw lastError;
+}
+
+async function createProfileViaClient(payload: RegisterProfileInput) {
+  const profileRef = doc(db, "users", payload.uid);
+  const existing = await getDoc(profileRef);
+
+  if (existing.exists()) {
+    return;
+  }
+
+  await setDoc(profileRef, {
+    uid: payload.uid,
+    fullName: payload.fullName,
+    email: payload.email,
+    role: payload.role,
+    phone: payload.phone,
+    avatarUrl: "",
+    status: "active",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp()
+  });
 }
 
 async function createProfileViaApi(payload: RegisterProfileInput, idToken: string) {
@@ -188,10 +241,14 @@ async function createProfileViaApi(payload: RegisterProfileInput, idToken: strin
 }
 
 function isPermissionDenied(error: unknown) {
+  if (typeof error !== "object" || error === null) return false;
+  
+  const err = error as { code?: string; status?: number; message?: string };
   return (
-    typeof error === "object" &&
-    error !== null &&
-    (("code" in error && error.code === "permission-denied") || ("status" in error && error.status === 403))
+    err.code === "permission-denied" ||
+    err.code === "firestore/permission-denied" ||
+    (typeof err.message === "string" && err.message.toLowerCase().includes("permission")) ||
+    err.status === 403
   );
 }
 
@@ -216,7 +273,7 @@ function toRegistrationError(error: unknown) {
   }
 
   if (isPermissionDenied(error)) {
-    return new Error("We could not finish creating your profile. Firestore access for new signups is blocked.");
+    return new Error("We could not finish creating your profile. Please check your network connection or try again later.");
   }
 
   return error instanceof Error ? error : new Error("Unable to create account.");

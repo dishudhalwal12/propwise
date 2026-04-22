@@ -33,8 +33,34 @@ function readServiceAccount() {
 
 function initAdminApp() {
   const serviceAccount = readServiceAccount();
+  const projectId =
+    process.env.FIREBASE_ADMIN_PROJECT_ID ??
+    process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ??
+    "demo-propwise";
+  const storageBucket =
+    process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ?? `${projectId}.appspot.com`;
+  const isUsingEmulators = Boolean(
+    process.env.FIREBASE_AUTH_EMULATOR_HOST ||
+      process.env.FIRESTORE_EMULATOR_HOST ||
+      process.env.FIREBASE_STORAGE_EMULATOR_HOST
+  );
 
-  if (!serviceAccount) {
+  if (!process.env.GOOGLE_CLOUD_PROJECT) {
+    process.env.GOOGLE_CLOUD_PROJECT = projectId;
+  }
+
+  if (!process.env.GCLOUD_PROJECT) {
+    process.env.GCLOUD_PROJECT = projectId;
+  }
+
+  if (!process.env.FIREBASE_CONFIG) {
+    process.env.FIREBASE_CONFIG = JSON.stringify({
+      projectId,
+      storageBucket
+    });
+  }
+
+  if (!serviceAccount && !isUsingEmulators) {
     return null;
   }
 
@@ -42,8 +68,14 @@ function initAdminApp() {
     return getApp();
   }
 
+  if (serviceAccount) {
+    return initializeApp({
+      credential: cert(serviceAccount)
+    });
+  }
+
   return initializeApp({
-    credential: cert(serviceAccount)
+    projectId
   });
 }
 
