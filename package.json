@@ -8,6 +8,7 @@
     "dev:local": "./scripts/firebase-emulators.sh exec \"next dev\"",
     "build": "next build",
     "start": "next start",
+    "prod": "npm run build && npm start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
     "typecheck": "tsc --noEmit -p tsconfig.typecheck.json"
   },
