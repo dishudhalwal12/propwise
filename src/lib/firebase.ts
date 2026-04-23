@@ -6,19 +6,19 @@ import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 import { connectStorageEmulator, getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY ?? "",
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ?? "",
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? "",
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ?? "",
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? "",
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID ?? ""
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY ?? "AIzaSyBCnaC7Q8EcASXbd3LYb5ycE7twOGVJeOI",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ?? "krishna-e9c59.firebaseapp.com",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? "krishna-e9c59",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ?? "krishna-e9c59.firebasestorage.app",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? "1048468387337",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID ?? "1:1048468387337:web:3b4f2de61b34cabab02ad8"
 };
 
 const missingKeys = Object.entries(firebaseConfig)
   .filter(([, value]) => !value)
   .map(([key]) => key);
 
-const isFirebaseConfigured = missingKeys.length === 0;
+const isFirebaseConfigured = true; // Hard-coded fallback ensures it is always configured
 
 // ONLY use emulators if EXPLICITLY set to "true"
 const useFirebaseEmulators = process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATORS === "true";
