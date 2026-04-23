@@ -6,12 +6,12 @@ import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 import { connectStorageEmulator, getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY ?? "",
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ?? "",
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? "",
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ?? "",
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? "",
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID ?? ""
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY ?? process.env.VITE_FIREBASE_API_KEY ?? "",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ?? process.env.VITE_FIREBASE_AUTH_DOMAIN ?? "",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? process.env.VITE_FIREBASE_PROJECT_ID ?? "",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ?? process.env.VITE_FIREBASE_STORAGE_BUCKET ?? "",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? process.env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? "",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID ?? process.env.VITE_FIREBASE_APP_ID ?? ""
 };
 
 const missingKeys = Object.entries(firebaseConfig)
@@ -19,13 +19,15 @@ const missingKeys = Object.entries(firebaseConfig)
   .map(([key]) => key);
 
 const isFirebaseConfigured = missingKeys.length === 0;
+
+// Only use emulators if explicitly requested OR if no config is found in development
 const useFirebaseEmulators =
   process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATORS === "true" ||
-  (!isFirebaseConfigured && process.env.NODE_ENV !== "production");
+  (process.env.NODE_ENV !== "production" && !isFirebaseConfigured && !process.env.NEXT_PUBLIC_FIREBASE_API_KEY && !process.env.VITE_FIREBASE_API_KEY);
 
-if (!isFirebaseConfigured) {
-  console.warn(
-    `Firebase public config missing: ${missingKeys.join(", ")}. Running in local demo mode with fallback Firebase app config.`
+if (!isFirebaseConfigured && !useFirebaseEmulators) {
+  console.error(
+    `Firebase configuration missing! Expected NEXT_PUBLIC_FIREBASE_* or VITE_FIREBASE_* keys. Missing: ${missingKeys.join(", ")}`
   );
 }
 
