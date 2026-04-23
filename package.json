@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "fix-env": "node scripts/fix-env.js",
     "dev:emulators": "./scripts/firebase-emulators.sh start",
-    "dev:local": "./scripts/firebase-emulators.sh exec \"next dev\"",
-    "build": "next build",
+    "dev:local": "npm run fix-env && ./scripts/firebase-emulators.sh exec \"next dev\"",
+    "build": "npm run fix-env && next build",
     "start": "next start",
     "prod": "npm run build && npm start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",

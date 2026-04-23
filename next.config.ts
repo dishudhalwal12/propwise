@@ -1,5 +1,8 @@
+import { loadEnvConfig } from "@next/env";
 import path from "node:path";
 import type { NextConfig } from "next";
+
+loadEnvConfig(process.cwd());
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(__dirname),
