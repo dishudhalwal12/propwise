@@ -25,14 +25,18 @@ export const metadata: Metadata = {
   }
 };
 
+import { ThemeProvider } from "@/components/providers/theme-provider";
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body className={`${fontSans.variable} ${fontDisplay.variable} min-h-screen bg-background font-sans text-foreground antialiased`}>
-        <AuthProvider>
-          {children}
-          <PropertyChatbot />
-        </AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthProvider>
+            {children}
+            <PropertyChatbot />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

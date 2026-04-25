@@ -26,14 +26,14 @@ export function SectionHeading({
       className={cn("space-y-4", align === "center" && "mx-auto max-w-3xl text-center", className)}
     >
       {eyebrow ? (
-        <div className="inline-flex rounded-full border border-white/60 bg-white/70 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
+        <div className="inline-flex rounded-full border border-white/60 bg-white/70 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400">
           {eyebrow}
         </div>
       ) : null}
-      <h2 className="font-display text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
+      <h2 className="font-display text-3xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-4xl lg:text-5xl">
         {title}
       </h2>
-      {description ? <p className="text-balance text-base leading-7 text-slate-600">{description}</p> : null}
+      {description ? <p className="text-balance text-base leading-7 text-slate-600 dark:text-slate-400">{description}</p> : null}
     </motion.div>
   );
 }

@@ -18,13 +18,13 @@ export function InteractionTimeline({ interactions }: { interactions: Interactio
           />
         ) : (
           interactions.map((interaction) => (
-            <div key={interaction.id} className="rounded-[24px] border border-slate-100 bg-slate-50/80 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-200">
+            <div key={interaction.id} className="rounded-[24px] border border-border bg-slate-50/80 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-border/80 dark:bg-white/5 dark:hover:border-white/10">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <p className="font-medium capitalize text-slate-950">{interaction.type}</p>
-                <p className="text-sm text-slate-500">{formatDateTime(interaction.interactionAt)}</p>
+                <p className="font-medium capitalize text-slate-950 dark:text-white">{interaction.type}</p>
+                <p className="text-sm text-muted-foreground">{formatDateTime(interaction.interactionAt)}</p>
               </div>
-              <p className="mt-2 text-sm leading-7 text-slate-600">{interaction.notes}</p>
-              <p className="mt-2 text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
+              <p className="mt-2 text-sm leading-7 text-muted-foreground">{interaction.notes}</p>
+              <p className="mt-2 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 Outcome: {interaction.outcome}
               </p>
             </div>

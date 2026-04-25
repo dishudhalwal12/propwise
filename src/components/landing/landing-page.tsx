@@ -72,10 +72,10 @@ function FloatingMetric({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
-      className={`rounded-[28px] border border-white/60 p-6 shadow-glass backdrop-blur-2xl ${tint}`}
+      className={`rounded-[28px] border border-white/60 p-6 shadow-glass backdrop-blur-2xl dark:border-white/10 dark:bg-white/5 ${tint}`}
     >
-      <p className="font-display text-4xl font-semibold text-slate-950">{value}</p>
-      <p className="mt-2 text-sm leading-6 text-slate-600">{label}</p>
+      <p className="font-display text-4xl font-semibold text-slate-950 dark:text-white">{value}</p>
+      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">{label}</p>
     </motion.div>
   );
 }
@@ -92,14 +92,14 @@ export function LandingPage() {
           <div className="grid gap-14 lg:grid-cols-[minmax(0,_1.08fr)_minmax(0,_0.92fr)] lg:items-start">
             <div className="min-w-0 space-y-8">
               <div className="space-y-6 pt-6 lg:pt-10">
-                <Badge variant="outline" className="border-white/70 bg-white/88 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-slate-600 shadow-[0_14px_30px_rgba(15,23,42,0.06)]">
+                <Badge variant="outline" className="border-white/70 bg-white/88 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-slate-600 shadow-[0_14px_30px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/5 dark:text-slate-400">
                   Premium SaaS for property intelligence
                 </Badge>
                 <div className="space-y-5">
-                  <h1 className="text-balance font-display text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
+                  <h1 className="text-balance font-display text-5xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
                     Make Smarter Property Decisions with Data
                   </h1>
-                  <p className="max-w-2xl text-lg leading-8 text-slate-600">
+                  <p className="max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400">
                     PropWise combines discovery, side-by-side comparison, ROI modeling, and CRM workflows so buyers and teams can move with conviction.
                   </p>
                 </div>
@@ -125,12 +125,12 @@ export function LandingPage() {
                     className="glass-panel rounded-[28px] p-5"
                   >
                     <div className="mb-5 flex items-center gap-2">
-                      <span className="h-9 w-9 rounded-2xl bg-indigo-100" />
-                      <span className="h-9 w-9 rounded-2xl bg-rose-100" />
-                      <span className="h-9 w-9 rounded-2xl bg-amber-100" />
+                      <span className="h-9 w-9 rounded-2xl bg-indigo-100 dark:bg-indigo-950/50" />
+                      <span className="h-9 w-9 rounded-2xl bg-rose-100 dark:bg-rose-950/50" />
+                      <span className="h-9 w-9 rounded-2xl bg-amber-100 dark:bg-amber-950/50" />
                     </div>
-                    <h3 className="font-display text-2xl font-semibold text-slate-950">Integrated workflows</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                    <h3 className="font-display text-2xl font-semibold text-slate-950 dark:text-white">Integrated workflows</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
                       From shortlist to ROI to follow-up, every decision stays connected.
                     </p>
                   </motion.div>
@@ -141,8 +141,8 @@ export function LandingPage() {
                     transition={{ delay: 0.1 }}
                     className="glass-panel rounded-[28px] p-5"
                   >
-                    <p className="font-display text-5xl font-semibold text-slate-950">5.5B</p>
-                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                    <p className="font-display text-5xl font-semibold text-slate-950 dark:text-white">5.5B</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
                       rupees in opportunities benchmarked across live comparison sessions.
                     </p>
                   </motion.div>
@@ -159,15 +159,15 @@ export function LandingPage() {
                         sizes="(max-width: 640px) 100vw, 28vw"
                         className="object-cover"
                       />
-                      <div className="absolute inset-x-5 top-5 rounded-2xl bg-white/72 px-4 py-3 backdrop-blur-xl">
-                        <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Prime shortlist</p>
-                        <p className="mt-1 font-display text-xl font-semibold text-slate-950">Sector 150, Noida</p>
+                      <div className="absolute inset-x-5 top-5 rounded-2xl bg-white/72 px-4 py-3 backdrop-blur-xl dark:bg-black/60">
+                        <p className="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Prime shortlist</p>
+                        <p className="mt-1 font-display text-xl font-semibold text-slate-950 dark:text-white">Sector 150, Noida</p>
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-[30px] border border-amber-200/80 bg-gradient-to-br from-amber-100 via-orange-50 to-white p-6 shadow-glass">
-                    <p className="font-display text-5xl font-semibold text-slate-950">83%</p>
-                    <p className="mt-3 text-sm leading-6 text-slate-700">
+                  <div className="rounded-[30px] border border-amber-200/80 bg-gradient-to-br from-amber-100 via-orange-50 to-white p-6 shadow-glass dark:border-amber-900/30 dark:from-amber-950/20 dark:via-orange-950/10 dark:to-black">
+                    <p className="font-display text-5xl font-semibold text-slate-950 dark:text-white">83%</p>
+                    <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-400">
                       of shortlisted properties become easier to rank after weighted comparison.
                     </p>
                   </div>
@@ -188,12 +188,12 @@ export function LandingPage() {
 
             <div className="min-w-0 space-y-6 pt-4 lg:pt-0">
               <div className="glass-panel rounded-[32px] p-6">
-                <p className="text-xs uppercase tracking-[0.22em] text-slate-400">Frameworks and expertise</p>
-                <div className="mt-4 rounded-[28px] bg-slate-50/80 p-4">
+                <p className="text-xs uppercase tracking-[0.22em] text-slate-400 dark:text-slate-500">Frameworks and expertise</p>
+                <div className="mt-4 rounded-[28px] bg-slate-50/80 p-4 dark:bg-white/5">
                   <div className="grid gap-4 md:grid-cols-[1.05fr_0.95fr] lg:grid-cols-1 xl:grid-cols-[1.05fr_0.95fr]">
                     <div className="space-y-4">
-                      <p className="font-display text-xl font-semibold text-slate-950">PropWise portfolio</p>
-                      <p className="text-sm leading-6 text-slate-600">
+                      <p className="font-display text-xl font-semibold text-slate-950 dark:text-white">PropWise portfolio</p>
+                      <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
                         Rapidly compare new opportunities and highlight the strongest fit for budget, yield, and location.
                       </p>
                       <div className="h-1.5 w-24 rounded-full bg-gradient-to-r from-amber-400 via-rose-300 to-indigo-300" />
@@ -212,21 +212,21 @@ export function LandingPage() {
               </div>
 
               <div id="how-it-works" className="grid gap-4 sm:grid-cols-2">
-                <FloatingMetric value="42%" label="better decision confidence from structured comparison views" tint="bg-indigo-100/85" />
-                <FloatingMetric value="60k" label="monthly user-level valuation points surfaced across listings" tint="bg-white/80" delay={0.1} />
-                <FloatingMetric value="5x" label="faster shortlist analysis with linked ROI and CRM workflows" tint="bg-rose-100/85" delay={0.15} />
-                <FloatingMetric value="80%" label="clearer ROI visibility before scheduling a site visit" tint="bg-amber-50/90" delay={0.22} />
+                <FloatingMetric value="42%" label="better decision confidence from structured comparison views" tint="bg-indigo-100/85 dark:bg-indigo-950/30" />
+                <FloatingMetric value="60k" label="monthly user-level valuation points surfaced across listings" tint="bg-white/80 dark:bg-white/5" delay={0.1} />
+                <FloatingMetric value="5x" label="faster shortlist analysis with linked ROI and CRM workflows" tint="bg-rose-100/85 dark:bg-rose-950/30" delay={0.15} />
+                <FloatingMetric value="80%" label="clearer ROI visibility before scheduling a site visit" tint="bg-amber-50/90 dark:bg-amber-950/20" delay={0.22} />
               </div>
 
               <div className="glass-panel grid gap-6 rounded-[32px] p-6 md:grid-cols-[1fr_0.9fr]">
                 <div className="space-y-4">
-                  <p className="font-display text-4xl font-semibold text-slate-950">
+                  <p className="font-display text-4xl font-semibold text-slate-950 dark:text-white">
                     Effortless onboarding and rapid deal movement
                   </p>
-                  <p className="text-sm leading-6 text-slate-600">
+                  <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
                     Transition browsing, evaluation, and follow-up into one calm workspace with purpose-built dashboards.
                   </p>
-                  <ul className="space-y-3 text-sm text-slate-600">
+                  <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
                     <li>Free migration mindset for existing research and lead notes</li>
                     <li>Transparent workflows across properties, comparisons, and viewings</li>
                     <li>Personalized support surfaces for buyers, investors, and agents</li>
@@ -245,8 +245,8 @@ export function LandingPage() {
             </div>
           </div>
 
-          <div className="mt-10 overflow-hidden border-t border-white/50 pt-8">
-            <div className="flex animate-marquee gap-12 whitespace-nowrap text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">
+          <div className="mt-10 overflow-hidden border-t border-white/50 pt-8 dark:border-white/10">
+            <div className="flex animate-marquee gap-12 whitespace-nowrap text-sm font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
               {[...logoCloud, ...logoCloud].map((logo, index) => (
                 <span key={`${logo}-${index}`}>{logo}</span>
               ))}
@@ -276,12 +276,12 @@ export function LandingPage() {
               >
                 <Card className="h-full">
                   <CardContent className="space-y-5 p-7">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-[22px] bg-white text-slate-950 shadow-soft">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-[22px] bg-white text-slate-950 shadow-soft dark:bg-slate-900 dark:text-white">
                       <Icon className="h-6 w-6" />
                     </div>
                     <div className="space-y-3">
-                      <h3 className="font-display text-2xl font-semibold text-slate-950">{feature.title}</h3>
-                      <p className="text-sm leading-7 text-slate-600">{feature.description}</p>
+                      <h3 className="font-display text-2xl font-semibold text-slate-950 dark:text-white">{feature.title}</h3>
+                      <p className="text-sm leading-7 text-slate-600 dark:text-slate-400">{feature.description}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -308,12 +308,12 @@ export function LandingPage() {
                 transition={{ duration: 0.45, delay: index * 0.07 }}
                 className="glass-panel flex gap-5 p-6"
               >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[22px] bg-slate-950 text-sm font-semibold text-white">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[22px] bg-slate-950 text-sm font-semibold text-white dark:bg-white dark:text-slate-950">
                   {item.step}
                 </div>
                 <div>
-                  <h3 className="font-display text-2xl font-semibold text-slate-950">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-slate-600">{item.description}</p>
+                  <h3 className="font-display text-2xl font-semibold text-slate-950 dark:text-white">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-400">{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -337,14 +337,14 @@ export function LandingPage() {
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
             >
-              <Card className={index === 1 ? "bg-slate-950 text-white" : ""}>
+              <Card className={index === 1 ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : ""}>
                 <CardContent className="space-y-5 p-8">
-                  <p className={`text-sm font-semibold uppercase tracking-[0.22em] ${index === 1 ? "text-white/70" : "text-slate-400"}`}>
+                  <p className={`text-sm font-semibold uppercase tracking-[0.22em] ${index === 1 ? "text-white/70 dark:text-slate-500" : "text-slate-400"}`}>
                     {plan.title}
                   </p>
                   <div className="space-y-2">
                     <p className="font-display text-5xl font-semibold">{plan.price}</p>
-                    <p className={index === 1 ? "text-white/72" : "text-slate-600"}>{plan.description}</p>
+                    <p className={index === 1 ? "text-white/72 dark:text-slate-600" : "text-slate-600 dark:text-slate-400"}>{plan.description}</p>
                   </div>
                   <Button variant={index === 1 ? "secondary" : "default"} asChild>
                     <Link href="/register">Get started</Link>

@@ -66,9 +66,9 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
           <Button type="submit" className="w-full" disabled={isPending}>
             {isPending ? "Signing in..." : "Login"}
           </Button>
-          <p className="text-center text-sm text-slate-500">
+          <p className="text-center text-sm text-muted-foreground">
             Need an account?{" "}
-            <Link href="/register" className="font-semibold text-slate-900">
+            <Link href="/register" className="font-semibold text-foreground dark:text-white hover:underline">
               Register
             </Link>
           </p>
@@ -147,9 +147,9 @@ export function RegisterForm() {
           <Button type="submit" className="w-full" disabled={isPending}>
             {isPending ? "Creating account..." : "Register"}
           </Button>
-          <p className="text-center text-sm text-slate-500">
+          <p className="text-center text-sm text-muted-foreground">
             Already registered?{" "}
-            <Link href="/login" className="font-semibold text-slate-900">
+            <Link href="/login" className="font-semibold text-foreground dark:text-white hover:underline">
               Login
             </Link>
           </p>

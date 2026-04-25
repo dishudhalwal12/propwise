@@ -112,15 +112,15 @@ export function PropertyDetailsClient({ id }: { id: string }) {
           <CardContent className="space-y-6 p-8">
             <div className="space-y-3">
               <Badge variant="outline">{property.type}</Badge>
-              <h1 className="font-display text-4xl font-semibold text-slate-950">{property.title}</h1>
-              <div className="flex items-center gap-2 text-sm text-slate-500">
+              <h1 className="font-display text-4xl font-semibold text-slate-950 dark:text-white">{property.title}</h1>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
                 {property.location.address}, {property.location.locality}, {property.location.city}
               </div>
             </div>
-            <p className="text-3xl font-semibold text-slate-950">{formatCurrency(property.price)}</p>
-            <p className="text-sm leading-7 text-slate-600">{property.description}</p>
-            <div className="grid gap-3 rounded-[24px] bg-slate-50/80 p-5 text-sm text-slate-600">
+            <p className="text-3xl font-semibold text-slate-950 dark:text-white">{formatCurrency(property.price)}</p>
+            <p className="text-sm leading-7 text-muted-foreground">{property.description}</p>
+            <div className="grid gap-3 rounded-[24px] bg-slate-50/80 p-5 text-sm text-muted-foreground dark:bg-white/5">
               <div className="flex items-center gap-3">
                 <Building2 className="h-4 w-4" />
                 {property.areaSqFt} sq.ft built-up area
@@ -154,7 +154,7 @@ export function PropertyDetailsClient({ id }: { id: string }) {
               <Button variant="secondary" asChild>
                 <Link href={`/calculator?propertyId=${property.id}`}>Analyze returns</Link>
               </Button>
-              {message ? <p className="text-sm leading-6 text-slate-600">{message}</p> : null}
+              {message ? <p className="text-sm leading-6 text-muted-foreground">{message}</p> : null}
             </div>
           </CardContent>
         </Card>
@@ -164,7 +164,7 @@ export function PropertyDetailsClient({ id }: { id: string }) {
         <Card>
           <CardContent className="space-y-6 p-8">
             <div>
-              <h2 className="font-display text-2xl font-semibold text-slate-950">Amenities</h2>
+              <h2 className="font-display text-2xl font-semibold text-slate-950 dark:text-white">Amenities</h2>
               <div className="mt-4 flex flex-wrap gap-3">
                 {property.amenities.map((amenity) => (
                   <Badge key={amenity} variant="outline" className="px-4 py-2 text-sm">
@@ -174,30 +174,30 @@ export function PropertyDetailsClient({ id }: { id: string }) {
               </div>
             </div>
             <div>
-              <h2 className="font-display text-2xl font-semibold text-slate-950">Neighborhood intelligence</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{property.neighborhoodInfo}</p>
+              <h2 className="font-display text-2xl font-semibold text-slate-950 dark:text-white">Neighborhood intelligence</h2>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{property.neighborhoodInfo}</p>
             </div>
           </CardContent>
         </Card>
 
         <Card>
           <CardContent className="space-y-5 p-8">
-            <h2 className="font-display text-2xl font-semibold text-slate-950">Decision summary</h2>
+            <h2 className="font-display text-2xl font-semibold text-slate-950 dark:text-white">Decision summary</h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-[24px] bg-sky-100/80 p-5">
-                <p className="text-sm text-slate-500">Location score</p>
-                <p className="mt-2 font-display text-4xl font-semibold text-slate-950">
+              <div className="rounded-[24px] bg-sky-100/80 p-5 dark:bg-sky-950/30">
+                <p className="text-sm text-muted-foreground">Location score</p>
+                <p className="mt-2 font-display text-4xl font-semibold text-slate-950 dark:text-white">
                   {property.locationRating ?? 0}
                 </p>
               </div>
-              <div className="rounded-[24px] bg-lime-100/80 p-5">
-                <p className="text-sm text-slate-500">ROI potential</p>
-                <p className="mt-2 font-display text-4xl font-semibold text-slate-950">
+              <div className="rounded-[24px] bg-lime-100/80 p-5 dark:bg-lime-950/30">
+                <p className="text-sm text-muted-foreground">ROI potential</p>
+                <p className="mt-2 font-display text-4xl font-semibold text-slate-950 dark:text-white">
                   {property.roiPotential ?? 0}%
                 </p>
               </div>
             </div>
-            <p className="text-sm leading-7 text-slate-600">
+            <p className="text-sm leading-7 text-muted-foreground">
               Use this listing inside the comparison workspace to benchmark price efficiency, area value, amenity spread, and long-term upside against other shortlisted assets.
             </p>
             <Button variant="secondary" asChild>

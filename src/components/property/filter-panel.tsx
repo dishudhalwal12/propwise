@@ -25,17 +25,17 @@ export function FilterPanel({
     <Card className="sticky top-24">
       <CardContent className="space-y-4 p-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-white">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-white dark:bg-white dark:text-slate-950">
             <SlidersHorizontal className="h-5 w-5" />
           </div>
           <div>
-            <p className="font-display text-xl font-semibold text-slate-950">Smart Filters</p>
-            <p className="text-sm text-slate-500">Refine by city, budget, type, and amenities.</p>
+            <p className="font-display text-xl font-semibold text-slate-950 dark:text-white">Smart Filters</p>
+            <p className="text-sm text-muted-foreground">Refine by city, budget, type, and amenities.</p>
           </div>
         </div>
 
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             className="pl-10"
             placeholder="Search location or project"

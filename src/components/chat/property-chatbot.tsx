@@ -92,7 +92,7 @@ function NativeSelect({
         value={value}
         disabled={disabled}
         onChange={(event) => onChange(event.target.value)}
-        className="h-12 w-full appearance-none rounded-[22px] border border-slate-200/80 bg-white/88 px-4 pr-11 text-sm text-slate-900 shadow-sm outline-none transition focus:border-slate-300 focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
+        className="h-12 w-full appearance-none rounded-[22px] border border-slate-200/80 bg-white/88 px-4 pr-11 text-sm text-foreground dark:text-white shadow-sm outline-none transition focus:border-slate-300 dark:border-white/10 dark:bg-white/5 focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
       >
         <option value="">{placeholder}</option>
         {options.map((option) => (
@@ -101,7 +101,7 @@ function NativeSelect({
           </option>
         ))}
       </select>
-      <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+      <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
     </div>
   );
 }
@@ -254,7 +254,7 @@ export function PropertyChatbot() {
       <div className="fixed bottom-6 right-6 z-[70]">
         <Button
           size="icon"
-          className="h-16 w-16 rounded-full bg-slate-950 shadow-[0_24px_60px_rgba(15,23,42,0.32)] hover:bg-slate-800"
+          className="h-16 w-16 rounded-full bg-slate-950 shadow-[0_24px_60px_rgba(15,23,42,0.32)] hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
           onClick={() => setOpen((value) => !value)}
           aria-label={open ? "Close property assistant" : "Open property assistant"}
         >
@@ -264,22 +264,22 @@ export function PropertyChatbot() {
 
       {open ? (
         <div className="fixed bottom-24 right-4 z-[70] w-[calc(100vw-2rem)] max-w-[24.5rem] sm:right-6">
-          <div className="overflow-hidden rounded-[32px] border border-white/15 bg-[rgba(255,255,255,0.92)] shadow-[0_36px_90px_rgba(0,0,0,0.42)] backdrop-blur-2xl">
-            <div className="border-b border-slate-200/80 px-5 py-4">
+          <div className="overflow-hidden rounded-[32px] border border-white/15 bg-[rgba(255,255,255,0.92)] shadow-[0_36px_90px_rgba(0,0,0,0.42)] backdrop-blur-2xl dark:bg-black/90 dark:border-white/10">
+            <div className="border-b border-slate-200/80 dark:border-white/10 px-5 py-4">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-start gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-soft">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-soft dark:bg-white dark:text-slate-950">
                     <MessageCircleMore className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="font-display text-xl font-semibold text-slate-950">PropWise Assistant</p>
-                    <p className="text-sm leading-6 text-slate-600">
+                    <p className="font-display text-xl font-semibold text-slate-950 dark:text-white">PropWise Assistant</p>
+                    <p className="text-sm leading-6 text-muted-foreground">
                       Pick a property, answer three quick questions, then chat about fit, returns, and next steps.
                     </p>
                   </div>
                 </div>
                 <button
-                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:bg-slate-50 hover:text-slate-950"
+                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 text-muted-foreground transition hover:bg-slate-50 dark:hover:bg-white/10 hover:text-slate-950 dark:hover:text-white"
                   onClick={() => setOpen(false)}
                   aria-label="Close assistant"
                 >
@@ -291,8 +291,8 @@ export function PropertyChatbot() {
             <div className="space-y-4 p-4">
               {!chatReady ? (
                 <>
-                  <div className="rounded-[24px] border border-slate-200/80 bg-[linear-gradient(180deg,rgba(248,244,238,0.96),rgba(255,255,255,0.96))] p-4">
-                    <div className="mb-3 flex items-center gap-2 text-slate-500">
+                  <div className="rounded-[24px] border border-slate-200/80 bg-[linear-gradient(180deg,rgba(248,244,238,0.96),rgba(255,255,255,0.96))] dark:border-white/10 dark:bg-white/5 p-4">
+                    <div className="mb-3 flex items-center gap-2 text-muted-foreground">
                       <Building2 className="h-4 w-4" />
                       <p className="text-xs font-semibold uppercase tracking-[0.2em]">Start with a property</p>
                     </div>
@@ -305,19 +305,19 @@ export function PropertyChatbot() {
                     />
 
                     {selectedProperty ? (
-                      <div className="mt-4 rounded-[22px] border border-white/80 bg-white/82 p-4">
+                      <div className="mt-4 rounded-[22px] border border-white/80 bg-white/82 dark:bg-white/5 p-4">
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <p className="font-display text-lg font-semibold text-slate-950">{selectedProperty.title}</p>
-                            <p className="mt-1 text-sm text-slate-600">
+                            <p className="font-display text-lg font-semibold text-slate-950 dark:text-white">{selectedProperty.title}</p>
+                            <p className="mt-1 text-sm text-muted-foreground">
                               {selectedProperty.location.locality}, {selectedProperty.location.city}
                             </p>
                           </div>
-                          <div className="rounded-full bg-slate-950 px-3 py-1 text-xs font-semibold text-white">
+                          <div className="rounded-full bg-slate-950 dark:bg-white px-3 py-1 text-xs font-semibold text-white dark:text-slate-950">
                             {formatCurrency(selectedProperty.price)}
                           </div>
                         </div>
-                        <p className="mt-3 text-sm leading-6 text-slate-600">{selectedProperty.description}</p>
+                        <p className="mt-3 text-sm leading-6 text-muted-foreground">{selectedProperty.description}</p>
                       </div>
                     ) : null}
                   </div>
@@ -343,8 +343,8 @@ export function PropertyChatbot() {
                     />
                   </div>
 
-                  <div className="rounded-[24px] border border-amber-100 bg-amber-50/86 p-4 text-sm leading-6 text-slate-700">
-                    <div className="mb-2 flex items-center gap-2 text-slate-950">
+                  <div className="rounded-[24px] border border-amber-100 dark:border-amber-900/30 bg-amber-50/86 dark:bg-amber-950/20 p-4 text-sm leading-6 text-slate-700 dark:text-slate-300">
+                    <div className="mb-2 flex items-center gap-2 text-slate-950 dark:text-white">
                       <Sparkles className="h-4 w-4 text-amber-500" />
                       <p className="font-semibold">What the assistant will do</p>
                     </div>
@@ -366,10 +366,10 @@ export function PropertyChatbot() {
                 </>
               ) : (
                 <>
-                  <div className="flex items-center justify-between gap-3 rounded-[22px] border border-slate-200/80 bg-slate-50/90 px-4 py-3">
+                  <div className="flex items-center justify-between gap-3 rounded-[22px] border border-slate-200/80 dark:border-white/10 bg-slate-50/90 dark:bg-white/5 px-4 py-3">
                     <div className="min-w-0">
-                      <p className="truncate font-semibold text-slate-950">{selectedProperty?.title}</p>
-                      <p className="truncate text-xs uppercase tracking-[0.18em] text-slate-500">
+                      <p className="truncate font-semibold text-slate-950 dark:text-white">{selectedProperty?.title}</p>
+                      <p className="truncate text-xs uppercase tracking-[0.18em] text-muted-foreground">
                         {selectedProperty?.location.locality}, {selectedProperty?.location.city}
                       </p>
                     </div>
@@ -380,7 +380,7 @@ export function PropertyChatbot() {
 
                   <div
                     ref={messageListRef}
-                    className="flex max-h-[26rem] min-h-[20rem] flex-col gap-3 overflow-y-auto rounded-[24px] border border-slate-200/80 bg-[linear-gradient(180deg,rgba(248,245,239,0.9),rgba(255,255,255,0.97))] p-3"
+                    className="flex max-h-[26rem] min-h-[20rem] flex-col gap-3 overflow-y-auto rounded-[24px] border border-slate-200/80 dark:border-white/10 bg-[linear-gradient(180deg,rgba(248,245,239,0.9),rgba(255,255,255,0.97))] dark:bg-white/5 p-3"
                   >
                     {messages.map((message) => (
                       <div
@@ -388,15 +388,15 @@ export function PropertyChatbot() {
                         className={cn(
                           "max-w-[88%] rounded-[22px] px-4 py-3 text-sm leading-6 shadow-sm",
                           message.role === "assistant"
-                            ? "border border-white/80 bg-white text-slate-700"
-                            : "ml-auto bg-slate-950 text-white"
+                            ? "border border-white/80 dark:border-white/10 bg-white dark:bg-white/5 text-slate-700 dark:text-slate-300"
+                            : "ml-auto bg-slate-950 dark:bg-white text-white dark:text-slate-950"
                         )}
                       >
                         {message.content}
                       </div>
                     ))}
                     {sending ? (
-                      <div className="max-w-[88%] rounded-[22px] border border-white/80 bg-white px-4 py-3 text-sm text-slate-500">
+                      <div className="max-w-[88%] rounded-[22px] border border-white/80 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-sm text-muted-foreground">
                         Thinking about the property...
                       </div>
                     ) : null}
@@ -427,7 +427,7 @@ export function PropertyChatbot() {
                 </>
               )}
 
-              <div className="flex items-center justify-between gap-4 text-xs text-slate-500">
+              <div className="flex items-center justify-between gap-4 text-xs text-muted-foreground">
                 <span>{assistantMode === "gemini" ? "Live property guidance is active." : "Property guidance is ready."}</span>
                 {statusMessage ? <span className="text-right">{statusMessage}</span> : null}
               </div>

@@ -22,7 +22,7 @@ export function PropertyCard({ property }: { property: Property }) {
         <div className="relative h-64">
           <Image src={property.imageUrls[0]} alt={property.title} fill className="object-cover" />
           <div className="absolute inset-x-4 top-4 flex items-start justify-between">
-            <Badge variant="outline" className="bg-white/80 backdrop-blur-xl">
+            <Badge variant="outline" className="bg-white/80 backdrop-blur-xl dark:bg-white/5">
               {property.type}
             </Badge>
             <Badge variant="mint" className="bg-white/85">
@@ -34,20 +34,20 @@ export function PropertyCard({ property }: { property: Property }) {
           <div className="space-y-2">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h3 className="font-display text-2xl font-semibold text-slate-950">{property.title}</h3>
-                <div className="mt-1 flex items-center gap-2 text-sm text-slate-500">
+                <h3 className="font-display text-2xl font-semibold text-slate-950 dark:text-white">{property.title}</h3>
+                <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
                   <MapPin className="h-4 w-4" />
                   {property.location.locality}, {property.location.city}
                 </div>
               </div>
-              <p className="text-right text-lg font-semibold text-slate-950">
+              <p className="text-right text-lg font-semibold text-slate-950 dark:text-white">
                 {formatCurrency(property.price)}
               </p>
             </div>
-            <p className="line-clamp-2 text-sm leading-6 text-slate-600">{property.description}</p>
+            <p className="line-clamp-2 text-sm leading-6 text-muted-foreground">{property.description}</p>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 rounded-[24px] bg-slate-50/80 p-4 text-sm text-slate-600">
+          <div className="grid grid-cols-3 gap-3 rounded-[24px] bg-slate-50/80 p-4 text-sm text-muted-foreground dark:bg-white/5">
             <div className="flex items-center gap-2">
               <BedDouble className="h-4 w-4" />
               {property.bedrooms} Beds

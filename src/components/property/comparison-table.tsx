@@ -19,25 +19,25 @@ export function ComparisonTable({ properties }: { properties: Property[] }) {
         <CardTitle>Comparison matrix</CardTitle>
       </CardHeader>
       <CardContent className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-slate-200 text-sm">
+        <table className="min-w-full divide-y divide-border text-sm">
           <thead>
             <tr>
-              <th className="pb-4 text-left font-medium text-slate-500">Metric</th>
+              <th className="pb-4 text-left font-medium text-muted-foreground">Metric</th>
               {properties.map((property) => (
-                <th key={property.id} className="pb-4 px-4 text-left font-medium text-slate-500">
+                <th key={property.id} className="pb-4 px-4 text-left font-medium text-muted-foreground">
                   {property.title}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-border/50">
             {rows.map((row) => {
               const Icon = row.icon;
               return (
                 <tr key={row.key}>
-                  <td className="py-4 pr-6 font-medium text-slate-700">
+                  <td className="py-4 pr-6 font-medium text-foreground dark:text-slate-300">
                     <div className="flex items-center gap-2">
-                      <Icon className="h-4 w-4 text-slate-400" />
+                      <Icon className="h-4 w-4 text-muted-foreground" />
                       {row.label}
                     </div>
                   </td>
@@ -53,7 +53,7 @@ export function ComparisonTable({ properties }: { properties: Property[] }) {
                               ? `${property.roiPotential ?? 0}%`
                               : property.locationRating ?? 0;
                     return (
-                      <td key={`${property.id}-${row.key}`} className="px-4 py-4 text-slate-600">
+                      <td key={`${property.id}-${row.key}`} className="px-4 py-4 text-muted-foreground">
                         {value}
                       </td>
                     );

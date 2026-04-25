@@ -80,8 +80,8 @@ export function DashboardSidebar() {
                 className={cn(
                   "flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition",
                   active
-                    ? "bg-slate-950 text-white shadow-soft"
-                    : "text-slate-600 hover:bg-white/70 hover:text-slate-950"
+                    ? "bg-slate-950 text-white shadow-soft dark:bg-white dark:text-slate-950"
+                    : "text-muted-foreground hover:bg-white/70 dark:hover:bg-white/5 hover:text-slate-950 dark:hover:text-white"
                 )}
               >
                 <Icon className="h-4 w-4" />
@@ -91,12 +91,12 @@ export function DashboardSidebar() {
           })}
         </nav>
       </div>
-      <div className="rounded-[24px] border border-white/60 bg-white/70 p-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Workspace</p>
-        <p className="mt-2 font-display text-lg font-semibold text-slate-950">
+      <div className="rounded-[24px] border border-border bg-white/70 dark:bg-white/5 p-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Workspace</p>
+        <p className="mt-2 font-display text-lg font-semibold text-slate-950 dark:text-white">
           {profile?.role?.replace("_", " ") ?? "PropWise"}
         </p>
-        <p className="mt-1 text-sm text-slate-500">Insights, CRM, and deal analysis in one flow.</p>
+        <p className="mt-1 text-sm text-muted-foreground">Insights, CRM, and deal analysis in one flow.</p>
       </div>
     </aside>
   );

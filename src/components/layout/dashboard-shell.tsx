@@ -59,7 +59,7 @@ export function DashboardShell({
               <Link
                 key={item.href}
                 href={item.href}
-                className="whitespace-nowrap rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-700"
+                className="whitespace-nowrap rounded-full bg-white dark:bg-white/10 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300"
               >
                 {item.label}
               </Link>

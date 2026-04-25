@@ -27,17 +27,17 @@ export function ViewingList({
           viewings.map((viewing) => {
             const property = properties.find((entry) => entry.id === viewing.propertyId);
             return (
-              <div key={viewing.id} className="rounded-[24px] border border-slate-100 bg-slate-50/80 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-200">
+              <div key={viewing.id} className="rounded-[24px] border border-border bg-slate-50/80 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-border/80 dark:bg-white/5 dark:hover:border-white/10">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <p className="font-medium text-slate-950">{property?.title ?? "Property viewing"}</p>
-                    <p className="text-sm text-slate-500">{formatDateTime(viewing.scheduledAt)}</p>
+                    <p className="font-medium text-slate-950 dark:text-white">{property?.title ?? "Property viewing"}</p>
+                    <p className="text-sm text-muted-foreground">{formatDateTime(viewing.scheduledAt)}</p>
                   </div>
-                  <div className="rounded-full bg-white px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                  <div className="rounded-full bg-white dark:bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                     {viewing.status}
                   </div>
                 </div>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{viewing.notes}</p>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{viewing.notes}</p>
               </div>
             );
           })
