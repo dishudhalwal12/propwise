@@ -219,6 +219,8 @@ export function PropertyChatbot() {
     setSending(true);
     setStatusMessage("");
 
+    const latestKey = localStorage.getItem("gemini_api_key") || "";
+
     try {
       const response = await fetch("/api/chat/property-assistant", {
         method: "POST",
@@ -229,7 +231,7 @@ export function PropertyChatbot() {
           property: selectedProperty,
           onboarding: answers,
           messages: nextMessages,
-          customApiKey: userApiKey
+          customApiKey: latestKey
         })
       });
 
