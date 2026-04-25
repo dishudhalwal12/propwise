@@ -26,6 +26,7 @@ const navByRole: Record<UserRole, { label: string; href: string; icon: React.Com
     { label: "Properties", href: "/properties", icon: Home },
     { label: "Compare", href: "/compare", icon: Columns3 },
     { label: "Calculator", href: "/calculator", icon: Calculator },
+    { label: "Settings", href: "/settings", icon: Settings2 },
     { label: "Profile", href: "/profile", icon: Settings2 }
   ],
   investor: [
@@ -33,6 +34,7 @@ const navByRole: Record<UserRole, { label: string; href: string; icon: React.Com
     { label: "Properties", href: "/properties", icon: Home },
     { label: "Compare", href: "/compare", icon: Columns3 },
     { label: "Calculator", href: "/calculator", icon: Calculator },
+    { label: "Settings", href: "/settings", icon: Settings2 },
     { label: "Profile", href: "/profile", icon: Settings2 }
   ],
   agent: [
@@ -42,11 +44,13 @@ const navByRole: Record<UserRole, { label: string; href: string; icon: React.Com
     { label: "Viewings", href: "/agent/viewings", icon: Home },
     { label: "Compare", href: "/compare", icon: Columns3 },
     { label: "Calculator", href: "/calculator", icon: Calculator },
+    { label: "Settings", href: "/settings", icon: Settings2 },
     { label: "Profile", href: "/profile", icon: Settings2 }
   ],
   property_manager: [
     { label: "Properties", href: "/manage-properties", icon: Warehouse },
     { label: "Viewings", href: "/agent/viewings", icon: Home },
+    { label: "Settings", href: "/settings", icon: Settings2 },
     { label: "Profile", href: "/profile", icon: Settings2 }
   ],
   admin: [
@@ -55,6 +59,7 @@ const navByRole: Record<UserRole, { label: string; href: string; icon: React.Com
     { label: "Leads", href: "/agent/leads", icon: Users },
     { label: "Viewings", href: "/agent/viewings", icon: Home },
     { label: "Properties", href: "/manage-properties", icon: Warehouse },
+    { label: "Settings", href: "/settings", icon: Settings2 },
     { label: "Profile", href: "/profile", icon: Settings2 }
   ]
 };

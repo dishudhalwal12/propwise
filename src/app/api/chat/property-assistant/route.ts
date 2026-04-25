@@ -17,9 +17,10 @@ type Payload = {
   property?: Property;
   onboarding?: OnboardingAnswers;
   messages?: ChatMessage[];
+  customApiKey?: string;
 };
 
-const MODEL = "gemini-2.5-flash";
+const MODEL = "gemini-1.5-flash";
 
 function isValidMessage(message: unknown): message is ChatMessage {
   return (
@@ -38,51 +39,24 @@ function formatOnboardingValue(value: string, fallback: string) {
 }
 
 function buildSystemInstruction(property: Property, onboarding: OnboardingAnswers) {
+  const goal = formatOnboardingValue(onboarding.goal, "buying/investing");
+  const budget = formatOnboardingValue(onboarding.budget, "your budget");
+  const timeline = formatOnboardingValue(onboarding.timeline, "soon");
+
   return [
-    "You are PropWise Assistant, a concise real-estate sales and analysis concierge for a single selected property.",
-    "Answer with confidence, but only use the provided property context and the user's questions. Never invent hidden fees, legal approvals, exact appreciation guarantees, or unsupported facts.",
-    "If information is missing, say that directly and suggest a practical next question or verification step.",
-    "Keep responses compact, useful, and customer-facing. Use short paragraphs or brief bullet points only when helpful.",
-    `Selected property: ${property.title} in ${property.location.locality}, ${property.location.city}.`,
-    `Property summary: ${property.description}`,
-    `Type: ${property.type}. Price: ₹${property.price}. Area: ${property.areaSqFt} sq ft. Bedrooms: ${property.bedrooms}. Bathrooms: ${property.bathrooms}.`,
-    `Amenities: ${property.amenities.join(", ")}.`,
-    `Neighborhood: ${property.neighborhoodInfo}`,
-    `Optional metrics: location rating ${property.locationRating ?? "not provided"}, ROI potential ${property.roiPotential ?? "not provided"}, monthly rent estimate ${property.monthlyRentEstimate ?? "not provided"}.`,
-    `Customer goal: ${formatOnboardingValue(onboarding.goal, "not provided")}.`,
-    `Customer budget range: ${formatOnboardingValue(onboarding.budget, "not provided")}.`,
-    `Customer timeline: ${formatOnboardingValue(onboarding.timeline, "not provided")}.`
+    "You are PropWise AI, a friendly, expert real-estate concierge. 🏡",
+    "Your tone: Warm, professional, and slightly conversational (like a savvy human advisor). Use appropriate emojis to feel friendly but stay focused on value. 😊",
+    "Rule 1: Be concise. Don't repeat facts multiple times. Use short paragraphs or clear bullet points.",
+    "Rule 2: Focus ONLY on the selected property. Don't speculate about external market trends unless they directly impact this specific listing.",
+    "Rule 3: Answer as if you know the user is looking for " + goal + " within " + budget + " on a " + timeline + " timeline. Tailor your advice to these specific needs.",
+    "",
+    `Context: ${property.title} in ${property.location.locality}. ₹${property.price.toLocaleString("en-IN")}.`,
+    `${property.bedrooms}BHK, ${property.areaSqFt} sqft. Amenities: ${property.amenities.slice(0, 5).join(", ")}.`,
+    `Location Highlight: ${property.neighborhoodInfo.slice(0, 150)}...`,
+    `ROI: ${property.roiPotential}% | Rent: ₹${property.monthlyRentEstimate?.toLocaleString("en-IN")}/mo.`,
+    "",
+    "If you don't know a specific detail (like exact maintenance fees or legal status), suggest they ask for a callback from the primary agent. 📞"
   ].join("\n");
-}
-
-function createFallbackReply(
-  property: Property,
-  onboarding: OnboardingAnswers,
-  question: string
-) {
-  const lowerQuestion = question.toLowerCase();
-  const budgetText = formatOnboardingValue(onboarding.budget, "the stated budget");
-  const goalText = formatOnboardingValue(onboarding.goal, "the stated goal");
-  const timelineText = formatOnboardingValue(onboarding.timeline, "the stated timeline");
-
-  if (lowerQuestion.includes("roi") || lowerQuestion.includes("rent") || lowerQuestion.includes("investment")) {
-    return `${property.title} looks strongest when framed as a ${goalText} decision. The asking price is ₹${property.price.toLocaleString("en-IN")} and the monthly rent estimate is ${property.monthlyRentEstimate ? `around ₹${property.monthlyRentEstimate.toLocaleString("en-IN")}` : "not listed yet"}. The ROI potential in the current record is ${property.roiPotential ? `${property.roiPotential}%` : "not specified"}, so I would position this as a candidate worth deeper yield validation rather than a guaranteed return story.`;
-  }
-
-  if (
-    lowerQuestion.includes("location") ||
-    lowerQuestion.includes("area") ||
-    lowerQuestion.includes("amenit") ||
-    lowerQuestion.includes("neighborhood")
-  ) {
-    return `${property.title} is in ${property.location.locality}, ${property.location.city}, and the current brief highlights ${property.neighborhoodInfo.toLowerCase()}. It offers ${property.areaSqFt} sq ft with ${property.bedrooms} bedrooms and ${property.bathrooms} bathrooms, plus amenities like ${property.amenities.slice(0, 4).join(", ")}. For a ${timelineText} buying horizon, that makes it easier to discuss both immediate usability and neighborhood upside.`;
-  }
-
-  if (lowerQuestion.includes("fit") || lowerQuestion.includes("good") || lowerQuestion.includes("buy")) {
-    return `For someone targeting ${goalText} within ${budgetText}, ${property.title} looks compelling if the actual quote and financing plan stay aligned with expectations. Its biggest strengths are the ${property.location.locality} location, the ${property.type.toLowerCase()} format, and the amenity stack. My next checks would be final all-in cost, possession readiness, and whether the neighborhood profile matches your day-to-day use case.`;
-  }
-
-  return `Here’s the clean read on ${property.title}: it is a ${property.type.toLowerCase()} in ${property.location.locality}, ${property.location.city}, priced at ₹${property.price.toLocaleString("en-IN")} with ${property.areaSqFt} sq ft and ${property.bedrooms} bedrooms. For a customer with ${goalText}, ${budgetText}, and a ${timelineText} horizon, I would use this as a guided-fit conversation around location quality, cash flow potential, and whether the amenity mix justifies the ticket size. Ask me about pricing fit, ROI, location strengths, or what objections a customer may raise next.`;
 }
 
 function readGeminiText(payload: unknown) {
@@ -121,7 +95,8 @@ export async function POST(request: Request) {
     const body = (await request.json()) as Payload;
     const property = body.property;
     const onboarding = body.onboarding;
-    const messages = Array.isArray(body.messages) ? body.messages.filter(isValidMessage).slice(-10) : [];
+    const customApiKey = body.customApiKey;
+    const messages = Array.isArray(body.messages) ? body.messages.filter(isValidMessage).slice(-6) : [];
 
     if (!property || !onboarding || messages.length === 0) {
       return NextResponse.json(
@@ -135,15 +110,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No user message found." }, { status: 400 });
     }
 
-    const fallbackReply = createFallbackReply(property, onboarding, latestUserMessage.content);
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = customApiKey || process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-      return NextResponse.json({ mode: "fallback", reply: fallbackReply });
+      return NextResponse.json(
+        { error: "Gemini API Key is missing. Please add it in Settings or .env.local." },
+        { status: 401 }
+      );
     }
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`,
       {
         method: "POST",
         headers: {
@@ -170,22 +147,31 @@ export async function POST(request: Request) {
       }
     );
 
+    const data = (await response.json()) as any;
+
     if (!response.ok) {
-      return NextResponse.json({ mode: "fallback", reply: fallbackReply });
+      const errorMessage = data.error?.message || "Gemini API request failed.";
+      return NextResponse.json(
+        { error: `Gemini Error: ${errorMessage}` },
+        { status: response.status }
+      );
     }
 
-    const data = (await response.json()) as unknown;
     const reply = readGeminiText(data);
 
     if (!reply) {
-      return NextResponse.json({ mode: "fallback", reply: fallbackReply });
+      return NextResponse.json(
+        { error: "Gemini returned an empty response. Please try rephrasing." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ mode: "gemini", reply });
-  } catch {
+  } catch (err) {
+    console.error("Chat API Error:", err);
     return NextResponse.json(
       {
-        error: "Unable to process the property assistant request."
+        error: "Internal server error while processing chat request."
       },
       { status: 500 }
     );

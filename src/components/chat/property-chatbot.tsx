@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Building2, ChevronDown, MessageCircleMore, Send, Sparkles, X } from "lucide-react";
+import { Building2, ChevronDown, MessageCircleMore, Send, Settings2, Sparkles, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -92,11 +93,14 @@ function NativeSelect({
         value={value}
         disabled={disabled}
         onChange={(event) => onChange(event.target.value)}
-        className="h-12 w-full appearance-none rounded-[22px] border border-slate-200/80 bg-white/88 px-4 pr-11 text-sm text-foreground dark:text-white shadow-sm outline-none transition focus:border-slate-300 dark:border-white/10 dark:bg-white/5 focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
+        style={{ colorScheme: "dark" }}
+        className="h-12 w-full appearance-none rounded-[22px] border border-slate-200/80 bg-white px-4 pr-11 text-sm text-slate-900 shadow-sm outline-none transition focus:border-slate-300 dark:border-white/10 dark:bg-slate-900 dark:text-white focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        <option value="">{placeholder}</option>
+        <option value="" className="dark:bg-slate-900">
+          {placeholder}
+        </option>
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option key={option.value} value={option.value} className="dark:bg-slate-900">
             {option.label}
           </option>
         ))}
@@ -117,6 +121,7 @@ export function PropertyChatbot() {
   const [assistantMode, setAssistantMode] = useState<ChatResponse["mode"]>("fallback");
   const [statusMessage, setStatusMessage] = useState("");
   const [syncedLiveProperties, setSyncedLiveProperties] = useState(false);
+  const [userApiKey, setUserApiKey] = useState("");
   const messageListRef = useRef<HTMLDivElement | null>(null);
 
   const selectedProperty = properties.find((property) => property.id === selectedPropertyId) ?? null;
@@ -126,6 +131,11 @@ export function PropertyChatbot() {
     Boolean(answers.budget) &&
     Boolean(answers.timeline) &&
     messages.length > 0;
+
+  useEffect(() => {
+    const savedKey = localStorage.getItem("gemini_api_key") || "";
+    setUserApiKey(savedKey);
+  }, [open]);
 
   useEffect(() => {
     if (!open || syncedLiveProperties) {
@@ -218,7 +228,8 @@ export function PropertyChatbot() {
         body: JSON.stringify({
           property: selectedProperty,
           onboarding: answers,
-          messages: nextMessages
+          messages: nextMessages,
+          customApiKey: userApiKey
         })
       });
 
@@ -231,14 +242,15 @@ export function PropertyChatbot() {
       setAssistantMode(data.mode);
       setMessages((current) => [...current, createMessage("assistant", data.reply)]);
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Assistant request failed.";
       setMessages((current) => [
         ...current,
         createMessage(
           "assistant",
-          "I’m still here, but the assistant request did not complete. Try again in a moment or rephrase the question."
+          `⚠️ ${errorMessage}`
         )
       ]);
-      setStatusMessage(error instanceof Error ? error.message : "Assistant request failed.");
+      setStatusMessage(errorMessage);
     } finally {
       setSending(false);
     }
@@ -264,7 +276,7 @@ export function PropertyChatbot() {
 
       {open ? (
         <div className="fixed bottom-24 right-4 z-[70] w-[calc(100vw-2rem)] max-w-[24.5rem] sm:right-6">
-          <div className="overflow-hidden rounded-[32px] border border-white/15 bg-[rgba(255,255,255,0.92)] shadow-[0_36px_90px_rgba(0,0,0,0.42)] backdrop-blur-2xl dark:bg-black/90 dark:border-white/10">
+          <div className="overflow-hidden rounded-[32px] border border-white/15 bg-white shadow-[0_36px_90px_rgba(0,0,0,0.42)] backdrop-blur-2xl dark:bg-slate-950 dark:border-white/10">
             <div className="border-b border-slate-200/80 dark:border-white/10 px-5 py-4">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-start gap-3">
@@ -278,13 +290,23 @@ export function PropertyChatbot() {
                     </p>
                   </div>
                 </div>
-                <button
-                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 text-muted-foreground transition hover:bg-slate-50 dark:hover:bg-white/10 hover:text-slate-950 dark:hover:text-white"
-                  onClick={() => setOpen(false)}
-                  aria-label="Close assistant"
-                >
-                  <X className="h-4 w-4" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <Link
+                    href="/settings"
+                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 text-muted-foreground transition hover:bg-slate-50 dark:hover:bg-white/10 hover:text-slate-950 dark:hover:text-white"
+                    onClick={() => setOpen(false)}
+                    title="Settings"
+                  >
+                    <Settings2 className="h-4 w-4" />
+                  </Link>
+                  <button
+                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 text-muted-foreground transition hover:bg-slate-50 dark:hover:bg-white/10 hover:text-slate-950 dark:hover:text-white"
+                    onClick={() => setOpen(false)}
+                    aria-label="Close assistant"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -354,12 +376,17 @@ export function PropertyChatbot() {
                   <div className="flex gap-3">
                     <Button
                       className="flex-1"
+                      variant="default"
                       disabled={!selectedProperty || !answers.goal || !answers.budget || !answers.timeline}
                       onClick={startConversation}
                     >
                       Start property chat
                     </Button>
-                    <Button variant="secondary" onClick={resetConversation}>
+                    <Button
+                      variant="outline"
+                      className="dark:bg-white/5"
+                      onClick={resetConversation}
+                    >
                       Reset
                     </Button>
                   </div>
