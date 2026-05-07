@@ -14,7 +14,7 @@ export default function NotFound() {
           <div className="space-y-3">
             <h1 className="font-display text-4xl font-semibold text-slate-950">This page is off market</h1>
             <p className="text-balance text-slate-600">
-              The route you requested does not exist or may have moved. Head back to PropWise and continue from a safe starting point.
+              The route you requested does not exist or may have moved. Head back to Property-Wise and continue from a safe starting point.
             </p>
           </div>
           <Button asChild>

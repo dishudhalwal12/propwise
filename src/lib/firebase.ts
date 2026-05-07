@@ -5,7 +5,7 @@ import { connectAuthEmulator, getAuth } from "firebase/auth";
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 import { connectStorageEmulator, getStorage } from "firebase/storage";
 
-console.log("🚀 PROPWISE: Loading Firebase Version 4 (Hardcoded Fallback Active)");
+console.log("🚀 PROPERTY-WISE: Loading Firebase Version 4 (Hardcoded Fallback Active)");
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyBCnaC7Q8EcASXbd3LYb5ycE7twOGVJeOI",
@@ -26,7 +26,7 @@ export const storage = getStorage(app);
 const isFirebaseConfigured = true;
 const useFirebaseEmulators = process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATORS === "true";
 
-if (typeof window !== "undefined" && useFirebaseEmulators && !globalThis.__PROPWISE_FIREBASE_EMULATORS_CONNECTED__) {
+if (typeof window !== "undefined" && useFirebaseEmulators && !globalThis.__PROPERTY-WISE_FIREBASE_EMULATORS_CONNECTED__) {
   const authHost = process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST || "127.0.0.1";
   const authPort = Number(process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_PORT || "9099");
   const firestoreHost = process.env.NEXT_PUBLIC_FIRESTORE_EMULATOR_HOST || "127.0.0.1";
@@ -38,7 +38,7 @@ if (typeof window !== "undefined" && useFirebaseEmulators && !globalThis.__PROPW
   connectFirestoreEmulator(db, firestoreHost, firestorePort);
   connectStorageEmulator(storage, storageHost, storagePort);
 
-  globalThis.__PROPWISE_FIREBASE_EMULATORS_CONNECTED__ = true;
+  globalThis.__PROPERTY-WISE_FIREBASE_EMULATORS_CONNECTED__ = true;
 }
 
 export { isFirebaseConfigured };

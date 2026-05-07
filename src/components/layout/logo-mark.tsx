@@ -17,7 +17,7 @@ export function LogoMark({ className, invert = false }: { className?: string; in
       </div>
       <div>
         <p className={cn("font-display text-lg font-semibold tracking-tight", invert ? "text-white" : "text-slate-950 dark:text-white")}>
-          PropWise
+          Property-Wise
         </p>
         <p className={cn("text-xs", invert ? "text-white/70" : "text-slate-500 dark:text-slate-400")}>Real Estate Intelligence</p>
       </div>

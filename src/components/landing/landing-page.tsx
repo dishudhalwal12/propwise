@@ -100,7 +100,7 @@ export function LandingPage() {
                     Make Smarter Property Decisions with Data
                   </h1>
                   <p className="max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400">
-                    PropWise combines discovery, side-by-side comparison, ROI modeling, and CRM workflows so buyers and teams can move with conviction.
+                    Property-Wise combines discovery, side-by-side comparison, ROI modeling, and CRM workflows so buyers and teams can move with conviction.
                   </p>
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row">
@@ -192,7 +192,7 @@ export function LandingPage() {
                 <div className="mt-4 rounded-[28px] bg-slate-50/80 p-4 dark:bg-white/5">
                   <div className="grid gap-4 md:grid-cols-[1.05fr_0.95fr] lg:grid-cols-1 xl:grid-cols-[1.05fr_0.95fr]">
                     <div className="space-y-4">
-                      <p className="font-display text-xl font-semibold text-slate-950 dark:text-white">PropWise portfolio</p>
+                      <p className="font-display text-xl font-semibold text-slate-950 dark:text-white">Property-Wise portfolio</p>
                       <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
                         Rapidly compare new opportunities and highlight the strongest fit for budget, yield, and location.
                       </p>
@@ -260,7 +260,7 @@ export function LandingPage() {
           align="center"
           eyebrow="Capabilities"
           title="Drive Transformative Impact with Real Estate Intelligence"
-          description="Every layer of PropWise is designed to reduce guesswork and compress the time from discovery to conviction."
+          description="Every layer of Property-Wise is designed to reduce guesswork and compress the time from discovery to conviction."
         />
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {featureCards.map((feature, index) => {

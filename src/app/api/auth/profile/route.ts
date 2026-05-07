@@ -40,7 +40,7 @@ async function createProfileWithRest(
     includeAuthHeader?: boolean;
   }
 ) {
-  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "demo-propwise";
+  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "demo-property-wise";
   const baseUrl = options?.baseUrl ?? "https://firestore.googleapis.com/v1";
   const includeAuthHeader = options?.includeAuthHeader ?? true;
 

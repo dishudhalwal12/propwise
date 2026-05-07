@@ -1,6 +1,6 @@
 "use client";
 
-const STORAGE_KEY = "propwise-compare";
+const STORAGE_KEY = "property-wise-compare";
 
 export function getCompareSelection() {
   if (typeof window === "undefined") return [];

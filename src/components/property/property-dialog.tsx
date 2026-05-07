@@ -40,7 +40,7 @@ export function PropertyDialog({ property, trigger, onSuccess }: PropertyDialogP
           <DialogDescription>
             {property
               ? "Update the details of your property listing."
-              : "Fill in the details below to list a new property on PropWise."}
+              : "Fill in the details below to list a new property on Property-Wise."}
           </DialogDescription>
         </DialogHeader>
         <PropertyForm

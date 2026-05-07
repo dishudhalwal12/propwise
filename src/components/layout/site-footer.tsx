@@ -13,7 +13,7 @@ export function SiteFooter() {
           <Link href="/calculator" className="hover:text-slate-950 dark:hover:text-white transition-colors">Calculator</Link>
           <Link href="/profile" className="hover:text-slate-950 dark:hover:text-white transition-colors">Profile</Link>
         </div>
-        <p className="text-sm text-slate-500 dark:text-slate-400">© 2026 PropWise. Built for smarter property decisions.</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">© 2026 Property-Wise. Built for smarter property decisions.</p>
       </div>
     </footer>
   );

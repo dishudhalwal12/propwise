@@ -12,9 +12,9 @@ export type ServerSession = {
 
 export async function getServerSession() {
   const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get("propwise-session")?.value;
-  const role = cookieStore.get("propwise-role")?.value as UserRole | undefined;
-  const uid = cookieStore.get("propwise-uid")?.value ?? "";
+  const sessionCookie = cookieStore.get("property-wise-session")?.value;
+  const role = cookieStore.get("property-wise-role")?.value as UserRole | undefined;
+  const uid = cookieStore.get("property-wise-uid")?.value ?? "";
 
   if (!sessionCookie) {
     return null;

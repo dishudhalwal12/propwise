@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     const sessionCookie = await adminAuth.createSessionCookie(idToken, {
       expiresIn: SESSION_MAX_AGE * 1000
     });
-    response.cookies.set("propwise-session", sessionCookie, {
+    response.cookies.set("property-wise-session", sessionCookie, {
       httpOnly: true,
       sameSite: "lax",
       secure,
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       maxAge: SESSION_MAX_AGE
     });
   } else {
-    response.cookies.set("propwise-session", "client", {
+    response.cookies.set("property-wise-session", "client", {
       httpOnly: true,
       sameSite: "lax",
       secure,
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     });
   }
 
-  response.cookies.set("propwise-role", role ?? "", {
+  response.cookies.set("property-wise-role", role ?? "", {
     httpOnly: false,
     sameSite: "lax",
     secure,
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
     maxAge: SESSION_MAX_AGE
   });
 
-  response.cookies.set("propwise-uid", uid, {
+  response.cookies.set("property-wise-uid", uid, {
     httpOnly: false,
     sameSite: "lax",
     secure,

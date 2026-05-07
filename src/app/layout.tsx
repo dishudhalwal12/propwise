@@ -17,7 +17,7 @@ const fontDisplay = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "PropWise",
+  title: "Property-Wise",
   description: "Real Estate Intelligence Platform",
   icons: {
     icon: "/favicon.svg",

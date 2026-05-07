@@ -99,7 +99,7 @@ export function DashboardSidebar() {
       <div className="rounded-[24px] border border-border bg-white/70 dark:bg-white/5 p-4">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Workspace</p>
         <p className="mt-2 font-display text-lg font-semibold text-slate-950 dark:text-white">
-          {profile?.role?.replace("_", " ") ?? "PropWise"}
+          {profile?.role?.replace("_", " ") ?? "Property-Wise"}
         </p>
         <p className="mt-1 text-sm text-muted-foreground">Insights, CRM, and deal analysis in one flow.</p>
       </div>

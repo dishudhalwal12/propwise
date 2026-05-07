@@ -23,8 +23,8 @@ export function middleware(request: NextRequest) {
   const basePath = resolveBasePath(pathname);
   if (!basePath) return NextResponse.next();
 
-  const hasSession = Boolean(request.cookies.get("propwise-session")?.value);
-  const role = request.cookies.get("propwise-role")?.value ?? "";
+  const hasSession = Boolean(request.cookies.get("property-wise-session")?.value);
+  const role = request.cookies.get("property-wise-role")?.value ?? "";
 
   if (!hasSession) {
     const url = new URL("/login", request.url);

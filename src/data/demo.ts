@@ -585,7 +585,7 @@ export const demoUsers: UserProfile[] = [
   {
     uid: userIds.admin,
     fullName: "Aarav Sharma",
-    email: "aarav.sharma@propwise.in",
+    email: "aarav.sharma@property-wise.in",
     role: "admin",
     phone: "+91 98765 11001",
     status: "active",
@@ -595,7 +595,7 @@ export const demoUsers: UserProfile[] = [
   {
     uid: userIds.agent,
     fullName: "Naina Mehta",
-    email: "naina.mehta@propwise.in",
+    email: "naina.mehta@property-wise.in",
     role: "agent",
     phone: "+91 98765 11002",
     status: "active",
@@ -605,7 +605,7 @@ export const demoUsers: UserProfile[] = [
   {
     uid: userIds.manager,
     fullName: "Kabir Rao",
-    email: "kabir.rao@propwise.in",
+    email: "kabir.rao@property-wise.in",
     role: "property_manager",
     phone: "+91 98765 11003",
     status: "active",
@@ -615,7 +615,7 @@ export const demoUsers: UserProfile[] = [
   {
     uid: userIds.investor,
     fullName: "Rhea Kapoor",
-    email: "rhea.kapoor@propwise.in",
+    email: "rhea.kapoor@property-wise.in",
     role: "investor",
     phone: "+91 98765 11004",
     status: "active",
@@ -625,7 +625,7 @@ export const demoUsers: UserProfile[] = [
   {
     uid: userIds.buyer,
     fullName: "Dev Malhotra",
-    email: "dev.malhotra@propwise.in",
+    email: "dev.malhotra@property-wise.in",
     role: "buyer",
     phone: "+91 98765 11005",
     status: "active",

@@ -21,7 +21,7 @@ export const faqItems = [
       "Buyer and investor sign-up is open. Professional roles are provisioned through the platform so access controls stay clean and intentional."
   },
   {
-    question: "Does PropWise calculate both affordability and investment returns?",
+    question: "Does Property-Wise calculate both affordability and investment returns?",
     answer:
       "Yes. The calculator suite covers EMI, ROI projection, and rental yield so users can evaluate both monthly cash flow and long-term upside."
   },

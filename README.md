@@ -1,6 +1,6 @@
-# PropWise
+# Property-Wise
 
-PropWise is a Next.js 15 real-estate intelligence app for VC32 students, buyers, investors, and internal agency workflows.
+Property-Wise is a Next.js 15 real-estate intelligence app for VC32 students, buyers, investors, and internal agency workflows.
 
 ## Quick start
 
@@ -19,7 +19,7 @@ When `.env.local` is left on the local demo values, the app connects to:
 - Firestore emulator on `127.0.0.1:8080`
 - Storage emulator on `127.0.0.1:9199`
 
-The repo includes `scripts/firebase-emulators.sh`, which reuses the local JDK installed at `~/.local/propwise/jdk-21` when present so Firestore can start reliably on a fresh shell.
+The repo includes `scripts/firebase-emulators.sh`, which reuses the local JDK installed at `~/.local/property-wise/jdk-21` when present so Firestore can start reliably on a fresh shell.
 
 ## Required setup
 

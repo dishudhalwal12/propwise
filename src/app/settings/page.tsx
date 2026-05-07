@@ -50,7 +50,7 @@ export default function SettingsPage() {
                 </div>
                 <div>
                   <h2 className="font-display text-xl font-semibold text-slate-950 dark:text-white">Gemini API Configuration</h2>
-                  <p className="text-sm text-muted-foreground">Power your PropWise Assistant with your own API key.</p>
+                  <p className="text-sm text-muted-foreground">Power your Property-Wise Assistant with your own API key.</p>
                 </div>
               </div>
             </div>

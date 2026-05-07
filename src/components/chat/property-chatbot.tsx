@@ -286,7 +286,7 @@ export function PropertyChatbot() {
                     <MessageCircleMore className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="font-display text-xl font-semibold text-slate-950 dark:text-white">PropWise Assistant</p>
+                    <p className="font-display text-xl font-semibold text-slate-950 dark:text-white">Property-Wise Assistant</p>
                     <p className="text-sm leading-6 text-muted-foreground">
                       Pick a property, answer three quick questions, then chat about fit, returns, and next steps.
                     </p>

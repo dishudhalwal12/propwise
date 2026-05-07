@@ -1,6 +1,6 @@
-const SESSION_COOKIE = "propwise-session";
-const ROLE_COOKIE = "propwise-role";
-const UID_COOKIE = "propwise-uid";
+const SESSION_COOKIE = "property-wise-session";
+const ROLE_COOKIE = "property-wise-role";
+const UID_COOKIE = "property-wise-uid";
 
 type CookieOptions = {
   days?: number;

@@ -50,7 +50,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
     <Card className="mx-auto max-w-md">
       <CardHeader className="space-y-2 text-center">
         <CardTitle>Welcome back</CardTitle>
-        <CardDescription>Sign in to access PropWise dashboards, comparisons, and CRM.</CardDescription>
+        <CardDescription>Sign in to access Property-Wise dashboards, comparisons, and CRM.</CardDescription>
       </CardHeader>
       <CardContent>
         <form action={handleSubmit} className="space-y-4">
@@ -110,7 +110,7 @@ export function RegisterForm() {
   return (
     <Card className="mx-auto max-w-md">
       <CardHeader className="space-y-2 text-center">
-        <CardTitle>Create your PropWise account</CardTitle>
+        <CardTitle>Create your Property-Wise account</CardTitle>
         <CardDescription>Buyer and investor registration is open. Professional roles are provisioned separately.</CardDescription>
       </CardHeader>
       <CardContent>

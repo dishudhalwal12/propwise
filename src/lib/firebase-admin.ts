@@ -36,7 +36,7 @@ function initAdminApp() {
   const projectId =
     process.env.FIREBASE_ADMIN_PROJECT_ID ??
     process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ??
-    "demo-propwise";
+    "demo-property-wise";
   const storageBucket =
     process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ?? `${projectId}.appspot.com`;
   const isUsingEmulators = Boolean(
