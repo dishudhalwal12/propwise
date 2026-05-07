@@ -35,6 +35,10 @@ service cloud.firestore {
       return role() in ["agent", "property_manager", "admin"];
     }
 
+    function isPropertyOwner(property) {
+      return signedIn() && property.createdBy == request.auth.uid;
+    }
+
     match /users/{userId} {
       allow create: if signedIn()
         && request.auth.uid == userId
@@ -72,8 +76,9 @@ service cloud.firestore {
     }
 
     match /properties/{propertyId} {
-      allow read: if resource.data.status == "active" || canManageProperties();
-      allow create, update, delete: if signedIn() && canManageProperties();
+      allow read: if resource.data.status == "active" || canManageProperties() || isPropertyOwner(resource.data);
+      allow create: if signedIn();
+      allow update, delete: if canManageProperties() || isPropertyOwner(resource.data);
     }
 
     match /comparisons/{comparisonId} {

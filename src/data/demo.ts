@@ -23,7 +23,19 @@ const propertyIds = {
   verde: "verde-courtyard-villas-kokapet",
   harbor: "harbor-quarter-lofts-adyar",
   aurelia: "aurelia-park-homes-kharadi",
-  citrine: "citrine-heights-penthouse-golf-course-road"
+  citrine: "citrine-heights-penthouse-golf-course-road",
+  orion: "orion-smart-enclave-noida",
+  glass: "the-glass-house-alibaug",
+  echo: "urban-echo-lofts-kochi",
+  haveli: "heritage-haveli-jaipur",
+  lake: "emerald-lake-retreat-nainital",
+  serene: "serene-palms-estate-goa",
+  sapphire: "sapphire-sky-residences-kolkata",
+  titanium: "titanium-business-park-ahmedabad",
+  willow: "willow-creek-villas-chandigarh",
+  apex: "apex-prime-suites-navi-mumbai",
+  golden: "golden-sands-retreat-jaisalmer",
+  zen: "the-zen-gardens-bhopal"
 } as const;
 
 const leadIds = {
@@ -49,7 +61,35 @@ const demoPropertyImages = {
   workspace:
     "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80",
   amenity:
-    "https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&w=1400&q=80"
+    "https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&w=1400&q=80",
+  modern:
+    "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=1400&q=80",
+  minimal:
+    "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1400&q=80",
+  cabin:
+    "https://images.unsplash.com/photo-1449156001437-3a1621dfbe2b?auto=format&fit=crop&w=1400&q=80",
+  suburban:
+    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1400&q=80",
+  interior:
+    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1400&q=80",
+  pool:
+    "https://images.unsplash.com/photo-1512915922686-57c11ed9d6f3?auto=format&fit=crop&w=1400&q=80",
+  glass:
+    "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=1400&q=80",
+  loft:
+    "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1400&q=80",
+  cottage:
+    "https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1400&q=80",
+  highrise:
+    "https://images.unsplash.com/photo-1515263487990-61b07816b324?auto=format&fit=crop&w=1400&q=80",
+  oasis:
+    "https://images.unsplash.com/photo-1475855581690-80accde3ae2b?auto=format&fit=crop&w=1400&q=80",
+  smarthome:
+    "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?auto=format&fit=crop&w=1400&q=80",
+  luxury:
+    "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=80",
+  modern_apt:
+    "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1400&q=80"
 };
 
 export const demoProperties: Property[] = [
@@ -238,6 +278,306 @@ export const demoProperties: Property[] = [
     locationRating: 9.6,
     roiPotential: 16.2,
     monthlyRentEstimate: 210000
+  },
+  {
+    id: propertyIds.orion,
+    title: "Orion Smart Enclave",
+    description: "Fully automated smart homes with gesture controls, AI-driven climate management, and biophilic design in the heart of Noida.",
+    type: "Apartment",
+    price: 18500000,
+    areaSqFt: 1950,
+    bedrooms: 3,
+    bathrooms: 3,
+    location: {
+      city: "Noida",
+      locality: "Sector 150",
+      address: "88 Expressway View"
+    },
+    amenities: ["Smart locks", "Air purification", "Voice assistant", "Automated lighting"],
+    neighborhoodInfo: "Next-gen tech corridor with upcoming airport connectivity and vast green expanses.",
+    imageUrls: [demoPropertyImages.smarthome, demoPropertyImages.minimal, demoPropertyImages.workspace],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-04-01T10:00:00.000Z",
+    updatedAt: "2026-04-02T12:00:00.000Z",
+    locationRating: 8.5,
+    roiPotential: 14.2,
+    monthlyRentEstimate: 85000
+  },
+  {
+    id: propertyIds.glass,
+    title: "The Glass House",
+    description: "Architectural masterpiece featuring floor-to-ceiling glass walls, private beach access, and a minimalist aesthetic for luxury living.",
+    type: "Villa",
+    price: 55000000,
+    areaSqFt: 4500,
+    bedrooms: 5,
+    bathrooms: 6,
+    location: {
+      city: "Alibaug",
+      locality: "Kihim",
+      address: "1 Coastal Lane"
+    },
+    amenities: ["Private beach", "Glass infinity pool", "Wine cellar", "Home theater"],
+    neighborhoodInfo: "Exclusive coastal retreat popular with HNI buyers and celebrities for weekend escapes.",
+    imageUrls: [demoPropertyImages.glass, demoPropertyImages.pool, demoPropertyImages.interior],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-03-30T14:00:00.000Z",
+    updatedAt: "2026-04-01T09:00:00.000Z",
+    locationRating: 9.8,
+    roiPotential: 18.5,
+    monthlyRentEstimate: 350000
+  },
+  {
+    id: propertyIds.echo,
+    title: "Urban Echo Lofts",
+    description: "Industrial-style lofts with exposed brick, high ceilings, and a vibrant community of creative professionals in Kochi.",
+    type: "Loft",
+    price: 11500000,
+    areaSqFt: 1550,
+    bedrooms: 2,
+    bathrooms: 2,
+    location: {
+      city: "Kochi",
+      locality: "Kadavanthra",
+      address: "24 Metro Hub"
+    },
+    amenities: ["Art studio", "Rooftop deck", "Cafe", "High-speed internet"],
+    neighborhoodInfo: "Vibrant urban center with excellent metro access and cultural hotspots.",
+    imageUrls: [demoPropertyImages.loft, demoPropertyImages.interior, demoPropertyImages.modern],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-03-28T11:00:00.000Z",
+    updatedAt: "2026-03-31T08:00:00.000Z",
+    locationRating: 8.2,
+    roiPotential: 11.8,
+    monthlyRentEstimate: 45000
+  },
+  {
+    id: propertyIds.haveli,
+    title: "Heritage Haveli",
+    description: "Restored 19th-century haveli blending Rajasthani grandeur with modern luxury, featuring hand-painted frescoes and a courtyard pool.",
+    type: "Boutique Hotel",
+    price: 85000000,
+    areaSqFt: 8000,
+    bedrooms: 12,
+    bathrooms: 12,
+    location: {
+      city: "Jaipur",
+      locality: "Pink City",
+      address: "Heritage Road"
+    },
+    amenities: ["Courtyard pool", "Spa", "Rooftop dining", "Library"],
+    neighborhoodInfo: "Historical district with high tourist footfall and cultural significance.",
+    imageUrls: [demoPropertyImages.interior, demoPropertyImages.pool, demoPropertyImages.cottage],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-03-25T09:00:00.000Z",
+    updatedAt: "2026-03-29T15:00:00.000Z",
+    locationRating: 9.5,
+    roiPotential: 19.2,
+    monthlyRentEstimate: 1200000
+  },
+  {
+    id: propertyIds.lake,
+    title: "Emerald Lake Retreat",
+    description: "Breathtaking lakeside cottage with panoramic views of the Himalayas, perfect for vacation rental or a serene second home.",
+    type: "Cottage",
+    price: 22000000,
+    areaSqFt: 2800,
+    bedrooms: 3,
+    bathrooms: 3,
+    location: {
+      city: "Nainital",
+      locality: "Bhimtal",
+      address: "15 Lakeside View"
+    },
+    amenities: ["Fireplace", "Outdoor grill", "Balcony", "Garden"],
+    neighborhoodInfo: "Quiet hill station micro-market with steady seasonal rental demand.",
+    imageUrls: [demoPropertyImages.cabin, demoPropertyImages.cottage, demoPropertyImages.modern],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-03-20T13:00:00.000Z",
+    updatedAt: "2026-03-27T10:00:00.000Z",
+    locationRating: 8.8,
+    roiPotential: 12.5,
+    monthlyRentEstimate: 95000
+  },
+  {
+    id: propertyIds.serene,
+    title: "Serene Palms Estate",
+    description: "Tropical estate nestled among palm trees, featuring a Mediterranean-style villa and direct access to a quiet beach in South Goa.",
+    type: "Estate",
+    price: 48000000,
+    areaSqFt: 6000,
+    bedrooms: 5,
+    bathrooms: 5,
+    location: {
+      city: "Goa",
+      locality: "Benaulim",
+      address: "42 Beach Haven"
+    },
+    amenities: ["Private pool", "Barbecue area", "Staff quarters", "Security system"],
+    neighborhoodInfo: "Relaxed coastal area with premium luxury villa clusters.",
+    imageUrls: [demoPropertyImages.pool, demoPropertyImages.villa, demoPropertyImages.terrace],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-03-15T12:00:00.000Z",
+    updatedAt: "2026-03-22T09:00:00.000Z",
+    locationRating: 9.2,
+    roiPotential: 15.1,
+    monthlyRentEstimate: 280000
+  },
+  {
+    id: propertyIds.sapphire,
+    title: "Sapphire Sky Residences",
+    description: "Ultra-luxury apartments with panoramic views of the Victoria Memorial, featuring gold-plated fixtures and world-class concierge.",
+    type: "Apartment",
+    price: 32000000,
+    areaSqFt: 3100,
+    bedrooms: 4,
+    bathrooms: 4,
+    location: {
+      city: "Kolkata",
+      locality: "Alipore",
+      address: "7 Royal Park"
+    },
+    amenities: ["Concierge", "Valet parking", "Private elevator", "Guest suites"],
+    neighborhoodInfo: "Kolkata's most prestigious neighborhood with historic charm and elite social circles.",
+    imageUrls: [demoPropertyImages.highrise, demoPropertyImages.skyline, demoPropertyImages.lounge],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-03-10T11:00:00.000Z",
+    updatedAt: "2026-03-18T14:00:00.000Z",
+    locationRating: 9.4,
+    roiPotential: 13.8,
+    monthlyRentEstimate: 180000
+  },
+  {
+    id: propertyIds.titanium,
+    title: "Titanium Business Park",
+    description: "Modern commercial spaces with flexible floorplans, designed for corporate headquarters and high-end retail in Ahmedabad.",
+    type: "Commercial",
+    price: 25000000,
+    areaSqFt: 5000,
+    bedrooms: 0,
+    bathrooms: 4,
+    location: {
+      city: "Ahmedabad",
+      locality: "Prahlad Nagar",
+      address: "101 Business Hub"
+    },
+    amenities: ["Server room", "Conference hall", "Cafeteria", "24/7 Security"],
+    neighborhoodInfo: "Established business district with excellent highway connectivity.",
+    imageUrls: [demoPropertyImages.tower, demoPropertyImages.workspace, demoPropertyImages.amenity],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-03-05T08:00:00.000Z",
+    updatedAt: "2026-03-15T11:00:00.000Z",
+    locationRating: 8.6,
+    roiPotential: 16.5,
+    monthlyRentEstimate: 220000
+  },
+  {
+    id: propertyIds.willow,
+    title: "Willow Creek Villas",
+    description: "Luxury villas in a secure gated community, featuring modern architecture and lush private gardens in the Garden City of Chandigarh.",
+    type: "Villa",
+    price: 38000000,
+    areaSqFt: 4000,
+    bedrooms: 4,
+    bathrooms: 5,
+    location: {
+      city: "Chandigarh",
+      locality: "Sector 10",
+      address: "5 Willow Drive"
+    },
+    amenities: ["Solar panels", "Rainwater harvesting", "Gym", "Tennis court"],
+    neighborhoodInfo: "Premium residential sector with wide roads and high quality of life.",
+    imageUrls: [demoPropertyImages.suburban, demoPropertyImages.modern, demoPropertyImages.amenity],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-02-28T09:00:00.000Z",
+    updatedAt: "2026-03-10T12:00:00.000Z",
+    locationRating: 9.1,
+    roiPotential: 12.2,
+    monthlyRentEstimate: 155000
+  },
+  {
+    id: propertyIds.apex,
+    title: "Apex Prime Suites",
+    description: "Compact yet luxury studio apartments designed for young professionals working in the nearby corporate hubs of Navi Mumbai.",
+    type: "Studio",
+    price: 8500000,
+    areaSqFt: 750,
+    bedrooms: 1,
+    bathrooms: 1,
+    location: {
+      city: "Navi Mumbai",
+      locality: "Vashi",
+      address: "99 Station Road"
+    },
+    amenities: ["Laundry service", "Co-working space", "Mini gym", "Cafe"],
+    neighborhoodInfo: "Strategic location near railway station and IT parks.",
+    imageUrls: [demoPropertyImages.minimal, demoPropertyImages.modern, demoPropertyImages.loft],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-02-20T10:00:00.000Z",
+    updatedAt: "2026-03-05T14:00:00.000Z",
+    locationRating: 8.0,
+    roiPotential: 11.5,
+    monthlyRentEstimate: 38000
+  },
+  {
+    id: propertyIds.golden,
+    title: "Golden Sands Retreat",
+    description: "Luxury tented camp and desert estate offering a unique glamping experience under the stars in the Thar Desert.",
+    type: "Resort",
+    price: 28000000,
+    areaSqFt: 10000,
+    bedrooms: 8,
+    bathrooms: 8,
+    location: {
+      city: "Jaisalmer",
+      locality: "Sam Sand Dunes",
+      address: "Desert Oasis Road"
+    },
+    amenities: ["Star gazing deck", "Camel safari", "Traditional dining", "Bonfire area"],
+    neighborhoodInfo: "Major tourist destination with high demand for experiential stays.",
+    imageUrls: [demoPropertyImages.oasis, demoPropertyImages.cottage, demoPropertyImages.interior],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-02-10T11:00:00.000Z",
+    updatedAt: "2026-02-25T16:00:00.000Z",
+    locationRating: 9.0,
+    roiPotential: 17.8,
+    monthlyRentEstimate: 450000
+  },
+  {
+    id: propertyIds.zen,
+    title: "The Zen Gardens",
+    description: "Vastu-compliant homes designed for holistic living, featuring meditation centers and organic gardens in the city of Lakes.",
+    type: "Apartment",
+    price: 15500000,
+    areaSqFt: 1800,
+    bedrooms: 3,
+    bathrooms: 3,
+    location: {
+      city: "Bhopal",
+      locality: "Arera Colony",
+      address: "12 Peace Lane"
+    },
+    amenities: ["Meditation hall", "Organic farm", "Yoga deck", "Library"],
+    neighborhoodInfo: "Quiet and green residential area with strong community vibes.",
+    imageUrls: [demoPropertyImages.interior, demoPropertyImages.minimal, demoPropertyImages.modern],
+    createdBy: userIds.manager,
+    status: "active",
+    createdAt: "2026-02-01T09:00:00.000Z",
+    updatedAt: "2026-02-15T10:00:00.000Z",
+    locationRating: 8.4,
+    roiPotential: 10.8,
+    monthlyRentEstimate: 55000
   }
 ];
 
@@ -557,21 +897,12 @@ export function getDemoProperties(options?: PropertyQueryOptions) {
     return true;
   });
 
-  if (filtered.length > 0 || !options?.createdBy) {
+  if (filtered.length > 0) {
     return filtered;
   }
 
-  return demoProperties.filter((property) => {
-    if (options?.status && options.status !== "all" && property.status !== options.status) {
-      return false;
-    }
-
-    if (options?.ids?.length && !options.ids.includes(property.id)) {
-      return false;
-    }
-
-    return true;
-  });
+  // Fallback to all demo properties if status-based filtering results in nothing
+  return demoProperties;
 }
 
 export function getDemoPropertyById(id: string) {

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ArrowRight, Building2, Home, MapPin, MessageSquarePlus, Wallet } from "lucide-react";
 
@@ -13,16 +13,21 @@ import { Card, CardContent } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/hooks/useAuth";
+import { useCompareSelection } from "@/hooks/useCompareSelection";
 import { getPropertyById } from "@/lib/firestore/properties";
-import { toggleCompareSelection } from "@/lib/compare";
 import { formatCurrency } from "@/lib/utils";
 import { Property } from "@/types/property";
 
 export function PropertyDetailsClient({ id }: { id: string }) {
   const { profile } = useAuth();
+  const { selectedIds, toggle } = useCompareSelection();
+  const router = useRouter();
+  const pathname = usePathname();
   const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
+
+  const selected = selectedIds.includes(id);
 
   useEffect(() => {
     getPropertyById(id)
@@ -54,8 +59,8 @@ export function PropertyDetailsClient({ id }: { id: string }) {
         title="Property unavailable"
         description="This listing may have been removed or is no longer active."
         action={
-          <Button asChild>
-            <Link href="/properties">Back to listings</Link>
+          <Button onClick={() => router.push("/properties")}>
+            Back to listings
           </Button>
         }
       />
@@ -98,12 +103,24 @@ export function PropertyDetailsClient({ id }: { id: string }) {
     <div className="space-y-8">
       <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="relative min-h-[420px] overflow-hidden rounded-[32px] sm:col-span-2">
-            <Image src={property.imageUrls[0]} alt={property.title} fill className="object-cover" />
+          <div className="relative min-h-[420px] overflow-hidden rounded-[32px] sm:col-span-2 bg-slate-100 dark:bg-slate-800">
+            {property.imageUrls[0] ? (
+              <Image src={property.imageUrls[0]} alt={property.title} fill className="object-cover" />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center text-slate-400">
+                <Building2 className="h-16 w-16" />
+              </div>
+            )}
           </div>
           {property.imageUrls.slice(1, 3).map((image) => (
-            <div key={image} className="relative min-h-[220px] overflow-hidden rounded-[28px]">
-              <Image src={image} alt={property.title} fill className="object-cover" />
+            <div key={image} className="relative min-h-[220px] overflow-hidden rounded-[28px] bg-slate-100 dark:bg-slate-800">
+              {image ? (
+                <Image src={image} alt={property.title} fill className="object-cover" />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center text-slate-400">
+                  <Building2 className="h-8 w-8" />
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -135,26 +152,32 @@ export function PropertyDetailsClient({ id }: { id: string }) {
               </div>
             </div>
             <div className="flex flex-col gap-3">
-              <Button onClick={() => toggleCompareSelection(property.id)}>
-                Add to compare
-                <ArrowRight className="h-4 w-4" />
+              <Button
+                variant={selected ? "default" : "secondary"}
+                onClick={() => toggle(property.id)}
+                className="w-full"
+              >
+                {selected ? "Added to compare" : "Add to compare"}
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               {profile ? (
-                <Button variant="secondary" onClick={handleLeadRequest}>
-                  <MessageSquarePlus className="h-4 w-4" />
+                <Button variant="secondary" onClick={handleLeadRequest} className="w-full">
+                  <MessageSquarePlus className="mr-2 h-4 w-4" />
                   Request agent callback
                 </Button>
               ) : (
-                <Button variant="secondary" asChild>
-                  <Link href={`/login?redirect=/properties/${property.id}`}>
-                    Login to request callback
-                  </Link>
+                <Button variant="secondary" onClick={() => router.push(`/login?redirect=${encodeURIComponent(pathname)}`)} className="w-full">
+                  Login to request callback
                 </Button>
               )}
-              <Button variant="secondary" asChild>
-                <Link href={`/calculator?propertyId=${property.id}`}>Analyze returns</Link>
+              <Button 
+                variant="outline" 
+                onClick={() => router.push(`/calculator?propertyId=${property.id}`)}
+                className="w-full border-2"
+              >
+                Analyze returns
               </Button>
-              {message ? <p className="text-sm leading-6 text-muted-foreground">{message}</p> : null}
+              {message ? <p className="mt-2 text-center text-sm font-medium text-indigo-600">{message}</p> : null}
             </div>
           </CardContent>
         </Card>
@@ -200,8 +223,8 @@ export function PropertyDetailsClient({ id }: { id: string }) {
             <p className="text-sm leading-7 text-muted-foreground">
               Use this listing inside the comparison workspace to benchmark price efficiency, area value, amenity spread, and long-term upside against other shortlisted assets.
             </p>
-            <Button variant="secondary" asChild>
-              <Link href="/compare">Open comparison workspace</Link>
+            <Button variant="secondary" onClick={() => router.push("/compare")}>
+              Open comparison workspace
             </Button>
           </CardContent>
         </Card>

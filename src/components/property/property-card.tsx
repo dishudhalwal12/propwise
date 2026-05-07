@@ -19,8 +19,14 @@ export function PropertyCard({ property }: { property: Property }) {
   return (
     <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.25 }}>
       <Card className="overflow-hidden">
-        <div className="relative h-64">
-          <Image src={property.imageUrls[0]} alt={property.title} fill className="object-cover" />
+        <div className="relative h-64 bg-slate-100 dark:bg-slate-800">
+          {property.imageUrls[0] ? (
+            <Image src={property.imageUrls[0]} alt={property.title} fill className="object-cover" />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center text-slate-400">
+              <Building2 className="h-12 w-12" />
+            </div>
+          )}
           <div className="absolute inset-x-4 top-4 flex items-start justify-between">
             <Badge variant="outline" className="bg-white/80 backdrop-blur-xl dark:bg-white/5">
               {property.type}

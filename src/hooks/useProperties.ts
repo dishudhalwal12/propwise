@@ -53,7 +53,7 @@ export function useProperties(options?: PropertyQueryOptions) {
     } finally {
       setLoading(false);
     }
-  }, [requestOptions]);
+  }, [serializedOptions]); // Use the stringified options as the dependency
 
   useEffect(() => {
     void refetch();
