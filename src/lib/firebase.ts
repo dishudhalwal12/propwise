@@ -26,7 +26,7 @@ export const storage = getStorage(app);
 const isFirebaseConfigured = true;
 const useFirebaseEmulators = process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATORS === "true";
 
-if (typeof window !== "undefined" && useFirebaseEmulators && !globalThis.__PROPERTY-WISE_FIREBASE_EMULATORS_CONNECTED__) {
+if (typeof window !== "undefined" && useFirebaseEmulators && !globalThis.__PROPERTY_WISE_FIREBASE_EMULATORS_CONNECTED__) {
   const authHost = process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST || "127.0.0.1";
   const authPort = Number(process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_PORT || "9099");
   const firestoreHost = process.env.NEXT_PUBLIC_FIRESTORE_EMULATOR_HOST || "127.0.0.1";
@@ -38,7 +38,7 @@ if (typeof window !== "undefined" && useFirebaseEmulators && !globalThis.__PROPE
   connectFirestoreEmulator(db, firestoreHost, firestorePort);
   connectStorageEmulator(storage, storageHost, storagePort);
 
-  globalThis.__PROPERTY-WISE_FIREBASE_EMULATORS_CONNECTED__ = true;
+  globalThis.__PROPERTY_WISE_FIREBASE_EMULATORS_CONNECTED__ = true;
 }
 
 export { isFirebaseConfigured };
