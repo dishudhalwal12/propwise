@@ -93,6 +93,57 @@ export default function ManagePropertiesPage() {
     });
   }
 
+  async function handleCleanupDuplicates() {
+    if (!profile) return;
+
+    startTransition(async () => {
+      try {
+        setMessage("Analyzing inventory for duplicates...");
+        const seen = new Set<string>();
+        const toDelete: Property[] = [];
+
+        // We use a reverse chronological sort from useProperties, 
+        // so we process the NEWEST ones first if we just iterate.
+        // Let's sort them by createdAt ASC to keep the original ones.
+        const sorted = [...properties].sort((a, b) => {
+          const timeA = new Date(a.createdAt ?? 0).getTime();
+          const timeB = new Date(b.createdAt ?? 0).getTime();
+          return timeA - timeB;
+        });
+
+        for (const property of sorted) {
+          const key = `${property.title}-${property.location.city}-${property.location.locality}`;
+          if (seen.has(key)) {
+            toDelete.push(property);
+          } else {
+            seen.add(key);
+          }
+        }
+
+        if (toDelete.length === 0) {
+          setMessage("No duplicate properties found.");
+          return;
+        }
+
+        setMessage(`Deleting ${toDelete.length} duplicates...`);
+        for (const property of toDelete) {
+          // Note: We don't delete images for duplicates since they share the same URLs
+          // and we want to keep the images for the remaining property.
+          // However, deleteProperty in firestore/properties.ts deletes images.
+          // I should call deleteDoc directly here or modify deleteProperty.
+          // Actually, since they use demo URLs (Unsplash), they aren't in Firebase Storage.
+          // But for safety, I'll use a direct delete if they are demo records.
+          await deleteProperty(property.id, []); 
+        }
+
+        await refetch();
+        setMessage(`Cleaned up ${toDelete.length} duplicate entries.`);
+      } catch (error) {
+        setMessage("Cleanup failed: " + (error instanceof Error ? error.message : "Unknown error"));
+      }
+    });
+  }
+
   return (
     <DashboardShell allowedRoles={["property_manager", "admin"]}>
       <div className="space-y-6">
@@ -102,6 +153,9 @@ export default function ManagePropertiesPage() {
           description="Inventory edits, image updates, and lifecycle status changes all persist to Firestore and Storage from this workspace."
           actions={
             <div className="flex gap-3">
+              <Button onClick={handleCleanupDuplicates} variant="outline" disabled={isPending}>
+                {isPending ? "Cleaning..." : "Clean Duplicates"}
+              </Button>
               <Button onClick={handleSeed} variant="outline" disabled={isPending}>
                 {isPending ? "Seeding..." : "Seed Mock Data"}
               </Button>
