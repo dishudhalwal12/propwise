@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { SectionHeading } from "@/components/layout/section-heading";
 import { FilterPanel } from "@/components/property/filter-panel";
@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { StateNotice } from "@/components/ui/state-notice";
 import { useAuth } from "@/hooks/useAuth";
 import { useProperties } from "@/hooks/useProperties";
-import { createProperty } from "@/lib/firestore/properties";
+import { createProperty, deleteProperty } from "@/lib/firestore/properties";
 import { demoProperties } from "@/data/demo";
 import { PropertyFormInput } from "@/types/property";
 
@@ -30,8 +30,12 @@ export default function PropertiesPage() {
     refetch
   } = useProperties({ status: "active" });
 
+  const [isCleaning, setIsCleaning] = useState(false);
+  const [isSeeding, setIsSeeding] = useState(false);
+
   const handleSeed = async () => {
     if (!user) return;
+    setIsSeeding(true);
     try {
       for (const property of demoProperties) {
         const { id, createdAt, updatedAt, ...rest } = property;
@@ -46,6 +50,53 @@ export default function PropertiesPage() {
       alert("Successfully seeded 18 properties!");
     } catch (err) {
       alert("Seeding failed: " + (err instanceof Error ? err.message : "Unknown error"));
+    } finally {
+      setIsSeeding(false);
+    }
+  };
+
+  const handleCleanupDuplicates = async () => {
+    if (!user) return;
+    setIsCleaning(true);
+    try {
+      const seen = new Set<string>();
+      const toDelete = [];
+
+      // Sort by createdAt ASC so we keep the OLDEST entry
+      const sorted = [...properties].sort((a, b) => {
+        const timeA = new Date(a.createdAt ?? 0).getTime();
+        const timeB = new Date(b.createdAt ?? 0).getTime();
+        return timeA - timeB;
+      });
+
+      for (const property of sorted) {
+        const key = `${property.title}|${property.location.city}|${property.location.locality}`;
+        if (seen.has(key)) {
+          toDelete.push(property);
+        } else {
+          seen.add(key);
+        }
+      }
+
+      if (toDelete.length === 0) {
+        alert("No duplicate properties found in the current view.");
+        return;
+      }
+
+      if (!confirm(`Found ${toDelete.length} duplicates. Proceed with deletion?`)) {
+        return;
+      }
+
+      for (const property of toDelete) {
+        await deleteProperty(property.id, []);
+      }
+      
+      await refetch();
+      alert(`Successfully removed ${toDelete.length} duplicate entries.`);
+    } catch (err) {
+      alert("Cleanup failed: " + (err instanceof Error ? err.message : "Unknown error"));
+    } finally {
+      setIsCleaning(false);
     }
   };
 
@@ -75,8 +126,11 @@ export default function PropertiesPage() {
         />
         {user ? (
           <div className="flex shrink-0 items-center gap-3">
-            <Button onClick={handleSeed} variant="outline" size="sm">
-              Seed Mock Data
+            <Button onClick={handleCleanupDuplicates} variant="outline" size="sm" disabled={isCleaning || isSeeding}>
+              {isCleaning ? "Cleaning..." : "Clean Duplicates"}
+            </Button>
+            <Button onClick={handleSeed} variant="outline" size="sm" disabled={isCleaning || isSeeding}>
+              {isSeeding ? "Seeding..." : "Seed Mock Data"}
             </Button>
             <PropertyDialog onSuccess={refetch} />
           </div>
